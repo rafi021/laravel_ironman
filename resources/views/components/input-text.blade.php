@@ -6,6 +6,9 @@
     <div class="col-sm-12">
     <div class="form-group {{ $errors->has($varName) ? 'has-danger': ''}} ">
             <input type={{ $type }} name={{ $varName }} id="input-{{ $varName }}" class="form-control {{ $errors->has($varName) ? 'is-invalid': ''}}" placeholder="{{$placeholderName}}" required aria-required="true" value="{{old($varName, $dbvalue ?? null)}}">
+            @if($type=="password")
+                <input type="checkbox" onclick="viewPassword_{{ $varName }}()">Show Password
+            @endif
             @if($errors->has($varName))
             <span id="{{ $varName }}-name" class="error text-danger" for='input-{{ $varName }}'>
                 {{ $errors->first($varName) }}
