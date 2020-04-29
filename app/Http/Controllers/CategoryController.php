@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view('category.index', [
-            'categorys' => Category::latest()->paginate(10),
+            'categorys' => Category::latest()->paginate(5),
             'time' => now(),
             'count' => Category::count(),
             'deleted_categorys' => Category::onlyTrashed()->get(),

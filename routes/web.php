@@ -36,6 +36,7 @@ Route::post('/category/delete/{category_id}', 'CategoryController@force_delete')
 Route::get('/category/restore/{category_id}', 'CategoryController@restore')->middleware('auth')->name('category.restore');
 
 // Route for Profile
+Route::get('/profile', 'ProfileController@index')->middleware('auth')->name('profile.index');
 Route::get('edit/profile', 'ProfileController@editprofile')->middleware('auth')->name('profile.edit');
 Route::post('update/profile', 'ProfileController@update')->middleware('auth')->name('profile.update');
 Route::post('update/profile/password', 'ProfileController@password_update')->middleware('auth')->name('profile.password');

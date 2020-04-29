@@ -14,9 +14,22 @@ class ProfileController extends Controller
         return $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $users = User::all();
+        $count = User::count();
+        $time = now();
+
+        // return view with compacting/binding data
+        return view('admin.profile.index', compact('users', 'count', 'time'));
+
+        // return view with binding manual data as an array
+        //return view('home', ['users' => $users]);
+    }
+
     public function editprofile()
     {
-        return view('admin.profile.index');
+        return view('admin.profile.edit');
     }
 
     public function update(Request $request)

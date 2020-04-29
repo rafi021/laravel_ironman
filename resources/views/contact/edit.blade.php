@@ -1,14 +1,22 @@
-@extends('layouts.app', ['activePage' => 'contact', 'titlePage' => __('Edit Contact')])
+@extends('layouts.dashboard_app', ['activePage' => 'contact', 'titlePage' => __('Edit Contact')])
 
-@section('content')
+@section('breadcrub_content')
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="{{ route('home') }}">Home</a>
+    <a class="breadcrumb-item" href="{{ route('contact.index') }}">Contact</a>
+    <span class="breadcrumb-item active">Edit Contact</span>
+</nav>
+@endsection
+
+@section('dashboard_content')
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 col-md-6 m-auto">
                 <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Edit New Contact</h4>
-                        <p class="card-category">contact edit form</p>
+                    <div class="card-header bg-warning">
+                        <h4 class="card-title tx-white">Edit New Contact</h4>
+                        <p class="card-category tx-white">contact edit form</p>
                     </div>
                     <div class="card-body">
                             {{-- Laravel 7 Components Features  --}}

@@ -1,11 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.dashboard_app', ['activePage' => 'home', 'titlePage' => __('DashBoard')])
 
-@section('content')
+@section('breadcrub_content')
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="{{ route('home') }}">Home</a>
+    <span class="breadcrumb-item active">Dashboard</span>
+</nav>
+@endsection
+
+@section('dashboard_content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard
+                <div class="card-header bg-teal-love">
+                    <h4 class="card-title tx-dark">List of Profiles #{{ $count ?? '' }}</h4>
+                    <p class="card-category tx-dark">Lastest user profile List on {{ $time->format('d-M-Y')}}</p>
                 </div>
                 <div class="card-body">
                     @if (session('status'))

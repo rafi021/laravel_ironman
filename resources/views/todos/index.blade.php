@@ -1,24 +1,30 @@
-@extends('layouts.app') 
-@section('content') 
-<div class="content"></div>
+@extends('layouts.dashboard_app', ['activePage' => 'todo', 'titlePage' => __('Add Todo Task')])
+
+@section('breadcrub_content')
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="{{ route('home') }}">Home</a>
+    <span class="breadcrumb-item active">Todo Task</span>
+</nav>
+@endsection
+
+@section('dashboard_content')
+<div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">List of Tasks</h4>
-                        <p class="lead">Task description with timing and active status</p>
+                    <div class="card-header bg-teal">
+                        <h4 class="card-title tx-white">List of Tasks</h4>
+                        <p class="card-category tx-white">Task description with timing and active status</p>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body table-responsive">
                         <x-alert type="success" :message="session('status')"/>
-                        <div class="row">
-                            <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
                                         <th>#</th>
                                         <th>Task Name</th>
                                         <th>Task Description</th>
-                                        <th>Actions</th>
+                                        <th colspan="50">Actions</th>
                                     </thead>
                                     <tbody>
                                         @forelse($todos as $todo)
@@ -30,21 +36,21 @@
                                                 <td> {{ $todo->taskName }} </td>
                                             @endif
                                             <td> {{ $todo->taskDescription }} </td>
-                                            <td class="td-actions text-right">
-                                                <div class="form-check">
-                                                    <input onclick="document.getElementById('form-complete-{{ $todo->id }}').submit()" type="checkbox" class="form-check-input">
-                                                    @if($todo->taskStatus)
-                                                        <label class="form-check-label" for="">Completed</label>
-                                                    @else
-                                                        <label class="form-check-label" for="">Pending</label>
-                                                    @endif
-                                                    <form class=".d-none" action="{{ route('todo.complete', $todo->id) }}" method="post" id="form-complete-{{ $todo->id }}">
-                                                        @csrf
-                                                        @method('put')
-                                                    </form>
-                                                </div>
-                                                <div class="ripple-container"></div>
-                                                <form action=" {{ route('todos.destroy', $todo->id) }} " method="post">
+                                            <td colspan="50" class="td-actions text-right">
+                                            <div class="form-check">
+                                            <input onclick="document.getElementById('form-complete-{{ $todo->id }}').submit()" type="checkbox" class="form-check-input">
+                                            @if($todo->taskStatus)
+                                                <span class="form-check-label">Completed</span>
+                                            @else
+                                                <span class="form-check-label">Pending</span>
+                                            @endif
+                                            <form style="display:none" class=".d-none" action="{{ route('todo.complete', $todo->id) }}" method="post" id="form-complete-{{ $todo->id }}">
+                                                @csrf
+                                                @method('put')
+                                            </form>
+                                            </div>
+                                            <div class="ripple-container"></div>
+                                            <form action=" {{ route('todos.destroy', $todo->id) }} " method="post">
                                                     @csrf 
                                                     @method('delete')
                                                     <a href="{{ route('todos.edit',$todo->id) }}" rel="tooltip" class="btn btn-info btn-link btn-sm">
@@ -64,8 +70,8 @@
                                     </tbody>
                                 </table>
                                 {{ $todos->links() }}
-                            </div>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -73,9 +79,9 @@
                 <form action=" {{ route('todos.store') }} " method="post" class="form-horizontal" autocomplete="off">
                     @csrf
                 <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">Add New Task</h4>
-                        <p class="lead">add new task with description</p>
+                    <div class="card-header bg-teal">
+                        <h4 class="card-title tx-white">Add New Task</h4>
+                        <p class="card-category tx-white">add new task with description</p>
                     </div>
                     <div class="card-body">
                         <x-alert type="success" :message="session('todo-status')"/>
@@ -106,7 +112,7 @@
                             </div>    
                         </div>
                         <div class="card-footer ml-auto mr-auto">
-                            <button class="btn btn-primary" type="submit"> {{ __('Save') }} </button>
+                            <button class="btn btn-success" type="submit"> {{ __('Save') }} </button>
                         </div>
                     </div>
                     </div>

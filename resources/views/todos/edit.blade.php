@@ -1,5 +1,14 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.dashboard_app', ['activePage' => 'todo', 'titlePage' => __('Edit Todo Task')])
+
+@section('breadcrub_content')
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="{{ route('home') }}">Home</a>
+    <a class="breadcrumb-item" href="{{ route('todos.index') }}">Todo Task</a>
+    <span class="breadcrumb-item active">Edit task</span>
+</nav>
+@endsection
+
+@section('dashboard_content')
 <div class="container">
     <div class="row">
         <div class="col-md-8 m-auto">
@@ -7,9 +16,9 @@
                 @csrf
                 @method('put')
             <div class="card">
-                <div class="card-header card-header-primary">
-                    <h4 class="card-title">Edit Task</h4>
-                    <p class="lead">Edit from task with description</p>
+                <div class="card-header bg-warning">
+                    <h4 class="card-title tx-white">Edit Task</h4>
+                    <p class="lead tx-white">Edit from task with description</p>
                 </div>
                 <div class="card-body">
                     <x-alert type="success" :message="session('todo-status')"/>

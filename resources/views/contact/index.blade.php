@@ -1,15 +1,21 @@
-@extends('layouts.app', ['activePage' => 'contact', 'titlePage' => __('Add Contact')])
+@extends('layouts.dashboard_app', ['activePage' => 'contact', 'titlePage' => __('Add Contact')])
 
-@section('content')
+@section('breadcrub_content')
+<nav class="breadcrumb sl-breadcrumb">
+    <a class="breadcrumb-item" href="{{ route('home') }}">Home</a>
+    <span class="breadcrumb-item active">Contact</span>
+</nav>
+@endsection
+
+@section('dashboard_content')
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-md-6">
                 <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">List of Contact #{{ $count ?? '' }}</h4>
-                        <p class="card-category">Lastest Contact List on {{ $time->format('d-M-Y') }}
-                        </p>
+                    <div class="card-header bg-teal">
+                        <h4 class="card-title tx-white">List of Contact #{{ $count ?? '' }}</h4>
+                        <p class="card-category tx-white">Lastest Contact List on {{ $time->format('d-M-Y') }}</p>
                     </div>
                     <div class="card-body table-responsive">
                         {{-- @if(session('status'))
@@ -72,9 +78,9 @@
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title">Add New Contact</h4>
-                        <p class="card-category">contact add form</p>
+                    <div class="card-header bg-teal">
+                        <h4 class="card-title tx-white">Add New Contact</h4>
+                        <p class="card-category tx-white">contact add form</p>
                     </div>
                     <div class="card-body">
                             {{-- Laravel 7 Components Features  --}}
@@ -97,9 +103,9 @@
         <div class="row">
             <div class="col-lg-8 col-md-6">
                 <div class="card">
-                    <div class="card-header card-header-primary">
-                        <h4 class="card-title">List of Deleted Contact #{{ $deleted_count ?? '' }}</h4>
-                        <p class="card-category">Lastest deleted contact list on {{ $time->format('d-M-Y') }}
+                    <div class="card-header bg-teal">
+                        <h4 class="card-title tx-white">List of Deleted Contact #{{ $deleted_count ?? '' }}</h4>
+                        <p class="card-category tx-white">Lastest deleted contact list on {{ $time->format('d-M-Y') }}
                         </p>
                     </div>
                     <div class="card-body table-responsive">

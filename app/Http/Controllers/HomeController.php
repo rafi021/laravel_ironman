@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -25,9 +24,11 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::all();
+        $count = User::count();
+        $time = now();
 
         // return view with compacting/binding data
-        return view('home', compact('users'));
+        return view('home', compact('users', 'count', 'time'));
 
         // return view with binding manual data as an array
         //return view('home', ['users' => $users]);
