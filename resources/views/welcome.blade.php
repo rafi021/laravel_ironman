@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel 7.0 (1st class)
+                   Laravel is Fun HW-30 (Adding Bootstrap Theme)
                 </div>
 
                 <div class="links">

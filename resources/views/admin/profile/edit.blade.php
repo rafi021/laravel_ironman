@@ -12,7 +12,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 col-md-6 m-auto">
+            <div class="col-lg-6 col-md-6">
                 <div class="card">
                     <div class="card-header bg-teal">
                         <h4 class="card-title tx-white">Edit Profile Form</h4>
@@ -21,7 +21,7 @@
                     <div class="card-body">
                             {{-- Laravel 7 Components Features  --}}
                             <x-alert :type="session('type')" :message="session('form-status')"/>
-                        <form action=" {{ route('profile.update') }} " method="post" autocomplete="off" autofocus>
+                            <form action=" {{ route('profile.update') }} " method="post" autocomplete="off" autofocus>
                             @csrf
                             <x-input-text type="text" labelName="Name" placeholderName="Profile Name" varName="name" :dbvalue="Auth::user()->name"/>
                             <x-input-text type="email" labelName="Email Address" placeholderName="Profile Email Address" varName="email" :dbvalue="Auth::user()->email"/>
@@ -32,9 +32,38 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                    <div class="card-header bg-teal">
+                        <h4 class="card-title tx-white">Edit Profile Image</h4>
+                        <p class="card-category tx-white">profile image edit form</p>
+                    </div>
+                    <div class="card-body">
+                            {{-- Laravel 7 Components Features  --}}
+                            <x-alert :type="session('type')" :message="session('form-image-status')"/>
+                        <form action=" {{ route('profile.image') }} " method="post" autocomplete="off" autofocus enctype="multipart/form-data">
+                            @csrf
+                            <input type="file" class="form-control-file" name="profile_image" id="profileimage" accept="image/*" onchange="loadFile(event)">
+                            <img width="50%" id="output"/>
+                            <script>
+                                var loadFile = function(event) {
+                                var output = document.getElementById('output');
+                                output.src = URL.createObjectURL(event.target.files[0]);
+                                output.onload = function() {
+                                    URL.revokeObjectURL(output.src) // free memory
+                                    }
+                                };
+                            </script>
+                            <div class="card-footer">
+                                <button class="btn btn-success" type="submit"> {{__('Update') }} </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row mt-4">
-            <div class="col-lg-8 col-md-6 m-auto">
+            <div class="col-lg-6 col-md-6 offset-6">
                 <div class="card">
                     <div class="card-header bg-teal">
                         <h4 class="card-title tx-white">Edit Profile Password Form</h4>

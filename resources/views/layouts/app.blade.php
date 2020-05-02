@@ -11,7 +11,8 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
-
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link
@@ -22,8 +23,7 @@
 
         {{-- Material Icons --}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
-        <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+        
     </head>
     <body>
         <div id="app">

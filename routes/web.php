@@ -12,16 +12,19 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-
+// Route for frontend pages
 Route::get('/', 'FrontendController@index');
-
 Route::get('contact', 'FrontendController@contact');
 Route::get('about', 'FrontendController@about');
 Route::get('service', 'FrontendController@service');
+
+// Route for authenrtication
 Auth::routes();
 
+// Route for Dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Route for todo tasks
 Route::resource('/todos', 'TodoController')->middleware('auth');
 Route::put('/todos/{todo}/complete', 'TodoController@complete')->name('todo.complete');
 
@@ -40,3 +43,4 @@ Route::get('/profile', 'ProfileController@index')->middleware('auth')->name('pro
 Route::get('edit/profile', 'ProfileController@editprofile')->middleware('auth')->name('profile.edit');
 Route::post('update/profile', 'ProfileController@update')->middleware('auth')->name('profile.update');
 Route::post('update/profile/password', 'ProfileController@password_update')->middleware('auth')->name('profile.password');
+Route::post('update/profile/image', 'ProfileController@image_upload')->middleware('auth')->name('profile.image');
