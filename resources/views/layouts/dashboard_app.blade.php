@@ -35,10 +35,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
 
     <!-- vendor css -->
+
     <link href="{{ asset('dashboard_assets') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="{{ asset('dashboard_assets') }}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
     <link href="{{ asset('dashboard_assets') }}/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
-
+    <link href="{{ asset('dashboard_assets') }}/lib/highlightjs/github.css" rel="stylesheet">
+    <link href="{{ asset('dashboard_assets') }}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
+    <link href="{{ asset('dashboard_assets') }}/lib/select2/css/select2.min.css" rel="stylesheet">
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard_assets') }}/css/starlight.css">
@@ -222,13 +225,15 @@
 
         </div>
     </div>
-
     <script src="{{ asset('dashboard_assets') }}/lib/jquery/jquery.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/popper.js/popper.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/bootstrap/bootstrap.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="{{ asset('dashboard_assets') }}/lib/highlightjs/highlight.pack.js"></script>
+    <script src="{{ asset('dashboard_assets') }}/lib/datatables/jquery.dataTables.js"></script>
+    <script src="{{ asset('dashboard_assets') }}/lib/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="{{ asset('dashboard_assets') }}/lib/select2/js/select2.min.js"></script>
 
-    <script src="{{ asset('dashboard_assets') }}/js/starlight.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
         <script>
             document.querySelector(".btn-delete").addEventListener("click" , function(){

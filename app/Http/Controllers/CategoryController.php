@@ -7,6 +7,7 @@ use App\Http\Requests\CategoryForm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -37,7 +38,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -49,13 +50,13 @@ class CategoryController extends Controller
     public function store(CategoryForm $request)
     {
         //dd($request->all());
-        Category::insert([
-            'categoryName' => $request->categoryname,
-            'categoryDescription' => $request->categorydescription,
+        $category_id = Category::insertGetId([
+            'categoryname' => $request->categoryname,
+            'categorydescription' => $request->categorydescription,
             'user_id' => Auth::id(),
             'created_at' => Carbon::now(),
         ]);
-
+        $this->image_upload($request, $category_id);
         return back()->with('success_status', $request->categoryname . ' category added successfully!');
     }
 
@@ -126,5 +127,38 @@ class CategoryController extends Controller
         Category::onlyTrashed()->where('id', $id)->forceDelete();
         //$category->forceDelete();
         return redirect()->route('category.index')->with('status', ' Category deleted permanently!!');
+    }
+
+    public function image_upload(CategoryForm $request, $category_id)
+    {
+
+        $category = Category::findorFail($category_id);
+        //dd($request->all(), $category, $request->hasFile('categoryimage'));
+        if ($request->hasFile('categoryimage')) {
+            if ($category->categoryimage != 'default_category.jpg') {
+                //delete old photo
+                $photo_location = 'public/uploads/category_photos/';
+                $old_photo_location = $photo_location . $category->categoryimage;
+                unlink(base_path($old_photo_location));
+            }
+            $photo_location = 'public/uploads/category_photos/';
+            $uploaded_photo = $request->file('categoryimage');
+            $new_photo_name = $category->id . '.' . $uploaded_photo->getClientOriginalExtension();
+            $new_photo_location = $photo_location . $new_photo_name;
+            Image::make($uploaded_photo)->resize(200, 200)->save(base_path($new_photo_location), 40);
+            //$user = User::find($category->id);
+            $check = $category->update([
+                'categoryimage' => $new_photo_name,
+            ]);
+            return redirect()->route('category.index')->with([
+                'type' => 'success',
+                'success_status' => 'Profile Photo Upload Successfull!!!',
+            ]);
+        } else {
+            return back()->with([
+                'type' => 'danger',
+                'success_status' => 'Please upload a valid image file',
+            ]);
+        }
     }
 }
