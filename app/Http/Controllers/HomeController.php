@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendNewsLetter;
 use App\User;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -32,5 +34,18 @@ class HomeController extends Controller
 
         // return view with binding manual data as an array
         //return view('home', ['users' => $users]);
+    }
+
+    public function sendnewsletter()
+    {
+        $users_email = User::all()->pluck('email');
+        foreach ($users_email as $email) {
+            Mail::to($email)
+                ->send(new SendNewsLetter());
+        }
+        return back()->with([
+            'type' => 'success',
+            'status' => 'News Letter Sent to all users in the list!!!',
+        ]);
     }
 }

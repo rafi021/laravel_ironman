@@ -32,6 +32,7 @@ $factory->state(User::class, 'mahmud', [
     'name' => 'Mahmud Ibrahim',
     'email' => 'mahmud.ibrahim021@gmail.com',
     'email_verified_at' => now(),
+    'profile_image' => '1.jpg',
     'password' => Hash::make('12345678'), // password
     'remember_token' => Str::random(10),
 ]);

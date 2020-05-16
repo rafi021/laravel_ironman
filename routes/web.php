@@ -23,6 +23,7 @@ Auth::routes();
 
 // Route for Dashboard
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('//send/newsletter', 'HomeController@sendnewsletter')->name('newsletter');
 
 // Route for todo tasks
 Route::resource('/todos', 'TodoController')->middleware('auth');

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ChangePasswordMail;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Image;
 
@@ -64,9 +66,27 @@ class ProfileController extends Controller
         $user = User::find(Auth::id());
         // check old password is correct or not
         if (Hash::check($request->old_password, $user->password)) {
-            $user->update([
-                'password' => Hash::make($request->password),
-            ]);
+            if ($request->old_password == $request->password) {
+                return back()->with([
+                    'type' => 'danger',
+                    'form-password-status', 'Try to provide New password',
+                ]);
+            } else {
+                $user->update([
+                    'password' => Hash::make($request->password),
+                ]);
+            }
+            //Send a password change email notification start
+            Mail::to($user->email)
+                ->cc("john@mail.com")
+                ->bcc("kamrul@mail.com")
+                ->send(
+                    new ChangePasswordMail(
+                        $user->name
+                    )
+                );
+            dd('SUCCESS');
+            //Send a password change email notification end
             return back()->with([
                 'type' => 'success',
                 'form-password-status' => 'User password has been updated!!!',

@@ -15,6 +15,7 @@
                 <div class="card-header bg-teal-love">
                     <h4 class="card-title tx-dark">List of Profiles #{{ $count ?? '' }}</h4>
                     <p class="card-category tx-dark">Lastest user profile List on {{ $time->format('d-M-Y')}}</p>
+                    <a href="{{ route('newsletter') }}" class="btn btn-warning bg-teal">Send NewsLetter</a>
                 </div>
                 <div class="card-body">
                     @if (session('status'))
