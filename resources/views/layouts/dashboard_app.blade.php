@@ -75,6 +75,13 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
 
+        <a href="{{ route('product.index') }}" class="sl-menu-link {{ $activePage == 'product' ? 'active' : '' }}">
+          <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-plus-circled tx-20"></i>
+          <span class="menu-item-label">Product</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+
         <a href="{{ route('contact.index') }}" class="sl-menu-link {{ $activePage == 'contact' ? 'active' : '' }}">
           <div class="sl-menu-item">
           <i class="menu-item-icon icon ion-person-stalker tx-20"></i>
@@ -89,7 +96,7 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
       
-        <a href="" class="sl-menu-link {{ ($activePage == 'userprofile' || $activePage == 'editprofile') ? 'active' : '' }}">
+        <a href="{{ route('profile.index') }}" class="sl-menu-link {{ ($activePage == 'userprofile' || $activePage == 'editprofile') ? 'active' : '' }}">
           <div class="sl-menu-item">
           <i class="menu-item-icon icon ion-person tx-20"></i>
           <span class="menu-item-label">Profile</span>
@@ -235,7 +242,7 @@
     <script src="{{ asset('dashboard_assets') }}/lib/select2/js/select2.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
-        <script>
+        {{-- <script>
             document.querySelector(".btn-delete").addEventListener("click" , function(){
                 Swal.fire({
                 title: 'Are you sure?',
@@ -256,6 +263,6 @@
                 }
                 })
             });
-        </script>
+        </script> --}}
   </body>
 </html>

@@ -39,6 +39,9 @@ Route::resource('/category', 'CategoryController')->middleware('auth');
 Route::post('/category/delete/{category_id}', 'CategoryController@force_delete')->middleware('auth')->name('category.forcedelete');
 Route::get('/category/restore/{category_id}', 'CategoryController@restore')->middleware('auth')->name('category.restore');
 
+// Route for Product
+Route::resource('/product', 'ProductController');
+
 // Route for Profile
 Route::get('/profile', 'ProfileController@index')->middleware('auth')->name('profile.index');
 Route::get('edit/profile', 'ProfileController@editprofile')->middleware('auth')->name('profile.edit');
