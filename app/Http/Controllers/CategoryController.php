@@ -91,14 +91,15 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryForm $request, $id)
+    public function update(CategoryForm $request, Category $category)
     {
-        $category = Category::findOrFail($id);
-        $validatedData = $request->validated();
-        $category->update($validatedData);
-        $category->save();
-        //dd($validatedData, $category);
-        return redirect()->route('category.index')->with('status', $category->categoryName . ' Category updated successfully!!');
+        $category->update([
+            'categoryname' => $request->input('categoryname'),
+            'categorydescription' => $request->input('categorydescription'),
+        ]);
+        $this->image_upload($request, $category->id);
+
+        return redirect()->route('category.index')->with('status', $category->categoryname . ' Category updated successfully!!');
     }
 
     /**
@@ -111,14 +112,14 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-        return redirect()->route('category.index')->with('status', $category->categoryName . ' Category deleted successfully!!');
+        return redirect()->route('category.index')->with('status', $category->categoryname . ' Category deleted successfully!!');
     }
 
     public function restore($id)
     {
         Category::onlyTrashed()->where('id', $id)->restore();
         $category = Category::findOrFail($id);
-        return redirect()->route('category.index')->with('status', $category->categoryName . ' Category restored successfully!!');
+        return redirect()->route('category.index')->with('status', $category->categoryname . ' Category restored successfully!!');
     }
 
     public function force_delete($id)
