@@ -12,7 +12,7 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $productCount = (int) $this->command->ask('How many blog products would you like to create?', 20);
+        $productCount = (int) $this->command->ask('How many products would you like to create?', 20);
 
         // model relation inside seeder
         $category = Category::all();

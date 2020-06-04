@@ -13,10 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
  */
 // Route for frontend pages
-Route::get('/', 'FrontendController@index');
-Route::get('contact', 'FrontendController@contact');
-Route::get('about', 'FrontendController@about');
-Route::get('service', 'FrontendController@service');
+Route::get('/', 'FrontendController@index')->name('index');
+Route::get('/contactus', 'FrontendController@contactus')->name('contactus');
+Route::get('/about', 'FrontendController@about')->name('about');
+Route::get('/service', 'FrontendController@service')->name('service');
+Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
+
+// Testimonial of Frontend routes
+Route::resource('/testimonial', 'TestimonialController');
 
 // Route for authenrtication
 Auth::routes();

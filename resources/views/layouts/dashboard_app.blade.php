@@ -82,6 +82,13 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
 
+        <a href="{{ route('testimonial.index') }}" class="sl-menu-link {{ $activePage == 'testimonial' ? 'active' : '' }}">
+          <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-magnet tx-20"></i>
+          <span class="menu-item-label">Testimonial</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+
         <a href="{{ route('contact.index') }}" class="sl-menu-link {{ $activePage == 'contact' ? 'active' : '' }}">
           <div class="sl-menu-item">
           <i class="menu-item-icon icon ion-person-stalker tx-20"></i>

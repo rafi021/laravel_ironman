@@ -13,8 +13,8 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-teal-love">
-                    <h4 class="card-title tx-dark">List of Profiles #{{ $count ?? '' }}</h4>
-                    <p class="card-category tx-dark">Lastest user profile List on {{ $time->format('d-M-Y')}}</p>
+                    <h4 class="card-title tx-dark">List of Client Messages #{{ $count ?? '' }}</h4>
+                    <p class="card-category tx-dark">Lastest Client Messages {{ $time->format('d-M-Y')}}</p>
                     <a href="{{ route('newsletter') }}" class="btn btn-warning bg-teal">Send NewsLetter</a>
                 </div>
                 <div class="card-body">
@@ -26,24 +26,23 @@
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">SN</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">#</th>
+                            <th scope="col">Client Name</th>
                             <th scope="col">Email Address</th>
-                            <th scope="col">Created at</th>
+                            <th scope="col">Subject</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Send at</th>
                         </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($clientMessage as $client)
                             <tr>
-                                <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td>
-                                    <ul class="list-group">
-                                        <li class="list-group">Date: {{ $user->created_at->format('d-M-Y' ) }}</li>
-                                        <li class="list-group">Time: {{ $user->created_at->format('h:i:s A' ) }}</li>
-                                    </ul>
-                                </td>
+                                <td>{{ $client->id }}</td>
+                                <td>{{ $client->fname }}</td>
+                                <td>{{ $client->email }}</td>
+                                <td>{{ $client->subject }}</td>
+                                <td>{{ $client->msg }}</td>
+                                <td>{{ $client->created_at->format('d-M-Y' ) }}</td>
                             </tr>
                             @endforeach
                         </tbody>

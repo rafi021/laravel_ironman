@@ -29,7 +29,7 @@
                                 <label for="categoryNameSelect">Category Select</label>
                                 <select class="form-control" id="categoryNameSelect" name="category_id" >
                                     @foreach ($categories as $category)    
-                                    <option value="{{ old($product->category_id, $category->id) }}">{{ $category->categoryname }}</option>
+                                    <option value="{{ old($product->category_id, $category->id) }}">{{ $product->category->categoryname }}</option>
                                     @endforeach
                                 </select>
                             </div>
