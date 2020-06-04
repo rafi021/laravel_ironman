@@ -14,7 +14,7 @@ class FrontendController extends Controller
     public function index()
     {
 
-        return view('frontend.index', [
+        return view('frontend.pages.index', [
             'categories' => Category::all(),
             'products' => Product::latest()->take(8)->get(),
             'testimonials' => Testimonial::latest()->take(4)->get(),
@@ -26,7 +26,7 @@ class FrontendController extends Controller
         $product_info = Product::where('slug', $slug)->get()->first();
         $related_products = Product::where('category_id', $product_info->category_id)->where('slug', '!=', $slug)->get();
         // dd($product_info, $related_product);
-        return view('frontend.single_product', [
+        return view('frontend.pages.single_product', [
             'product_info' => $product_info,
             'related_products' => $related_products,
         ]);
@@ -34,12 +34,12 @@ class FrontendController extends Controller
 
     public function contactus()
     {
-        return view('frontend.contact');
+        return view('frontend.pages.contact');
     }
 
     public function about()
     {
-        return view('frontend.about');
+        return view('frontend.pages.about');
     }
 
     public function service()
