@@ -1,5 +1,7 @@
 <!-- .breadcumb-area start -->
-<div class="breadcumb-area bg-img-4 ptb-100">
+<div class="breadcumb-area ptb-100"
+style="background: url({{ asset('uploads/category_photos') }}/1.jpg) no-repeat center center / cover;"
+>
     <div class="container">
         <div class="row">
             <div class="col-12">

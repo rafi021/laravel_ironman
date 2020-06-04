@@ -17,6 +17,7 @@ Route::get('/', 'FrontendController@index')->name('index');
 Route::get('/contactus', 'FrontendController@contactus')->name('contactus');
 Route::get('/about', 'FrontendController@about')->name('about');
 Route::get('/service', 'FrontendController@service')->name('service');
+Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');
 Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
 
 // Testimonial of Frontend routes

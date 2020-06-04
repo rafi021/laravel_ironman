@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Image;
 
 class ProductController extends Controller
@@ -52,6 +53,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         //dd($request->all());
+        $slug_link = Str::slug($request->input('product_name') . '-' . Str::random(5));
+        //dd($slug_link);
         $product_id = Product::insertGetId([
             'category_id' => $request->input('category_id'),
             'product_name' => $request->input('product_name'),
@@ -61,6 +64,7 @@ class ProductController extends Controller
             'product_price' => $request->input('product_price'),
             'product_stock' => $request->input('product_stock'),
             'additional_info' => $request->input('additional_info'),
+            'slug' => $slug_link,
             'created_at' => Carbon::now(),
         ]);
         $this->image_upload($request, $product_id);
@@ -102,6 +106,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Product $product)
     {
+        $slug_link = Str::slug($request->input('product_name') . '-' . Str::random(5));
 
         $product->update([
             'category_id' => $request->input('category_id'),
@@ -111,6 +116,7 @@ class ProductController extends Controller
             'product_code' => $request->input('product_code'),
             'product_price' => $request->input('product_price'),
             'product_stock' => $request->input('product_stock'),
+            'slug' => $slug_link,
             'additional_info' => $request->input('additional_info'),
         ]);
 

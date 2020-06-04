@@ -21,6 +21,17 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function singleproduct($slug)
+    {
+        $product_info = Product::where('slug', $slug)->get()->first();
+        $related_products = Product::where('category_id', $product_info->category_id)->where('slug', '!=', $slug)->get();
+        // dd($product_info, $related_product);
+        return view('frontend.single_product', [
+            'product_info' => $product_info,
+            'related_products' => $related_products,
+        ]);
+    }
+
     public function contactus()
     {
         return view('frontend.contact');
