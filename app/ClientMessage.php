@@ -11,5 +11,6 @@ class ClientMessage extends Model
         'email',
         'subject',
         'msg',
+        'client_upload_file',
     ];
 }

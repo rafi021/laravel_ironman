@@ -25,4 +25,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\Category')->withTrashed();
     }
+
+    public function productImage()
+    {
+        return $this->hasMany('App\ProductImage');
+    }
 }

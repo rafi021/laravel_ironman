@@ -11,7 +11,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-9 col-md-6 m-auto" >
+            <div class="col-lg-9 col-md-9 m-auto" >
                 <div class="card">
                     <div class="card-header tx-white bg-teal">
                         <h4 class="card-title tx-white">List of Products #{{ $count ?? '' }}</h4>
@@ -37,6 +37,7 @@
                         <table class="table table-hover">
                             <thead class="text-primary">
                                 <th>#</th>
+                                <th>Mark</th>
                                 <th>Image</th>
                                 <th>Category Name</th>
                                 <th>Product Name</th>
@@ -50,6 +51,11 @@
                                 @forelse ($products as $product)
                                     <tr>
                                         <td> {{ $products->firstItem() + $loop->index }} </td>
+                                        <td>
+                                            <div class="form-check text-center mx-2">
+                                                <input type="checkbox" class="form-check-input" name="mark-deletes[]" value="{{ $product->id }}">
+                                            </div>
+                                        </td>
                                         <td>
                                             <img class="img-fluid" width="50" src="{{ asset('uploads/product_photos') }}/{{ $product->product_image }}" alt="no photo">
                                         </td>
@@ -83,6 +89,16 @@
                                 @endforelse
                             </tbody>
                         </table>
+                        <form id="mark-delete-form" action="{{ route('markdelete')}}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <input type="hidden" name="mark_deletes[]" id="mark-delete-input" value="">
+                                <button id="mark-delete" type="button" class="btn btn-danger" onclick="
+                                showMarkArray();
+                                confirm('Are you sure want to delete?') ? this.parentElement.parentElement.submit(): ''"
+                                >Mark Delete</button>
+                            </div>
+                        </form>
                         {{ $products->links() }}
                     </div>
                 </div>
@@ -157,5 +173,32 @@
         </div> --}}
     </div>
 </div>
+<script>
+    // UI Element 
+    const markDeleteInput = document.getElementById('mark-delete-input');
+    const checkBoxInputAll = document.querySelectorAll('.form-check-input');
+
+    let markDeleteArray = [];
+    // Get the value of checkBox
+    function showMarkArray() { 
+        checkBoxInputAll.forEach(function(item){
+            if(item.checked === true){
+                //console.log(item.value); 
+                // Add value to markDeleteInput 
+                markDeleteArray.push(item.value);
+
+                markDeleteInput.value = markDeleteArray;
+
+                // Clear array values
+                // markDeleteArray.forEach(function(index){
+                //     markDeleteArray.pop()
+                // });
+            }
+            
+        });
+    }
+</script>
 @endsection
+
+
 

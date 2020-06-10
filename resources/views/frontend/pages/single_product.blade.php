@@ -15,41 +15,23 @@
                         <div class="item">
                             <img src="{{ asset('uploads/product_photos') }}/{{ $product_info->product_image }}" alt="">
                         </div>
+                        @foreach ($product_images as $single_image)
+                        {{-- {{ $single_image->product_multiple_photo_name }} --}}
                         <div class="item">
-                            <img src="assets/images/product/product-details/2.jpg" alt="">
+                            <img src="{{ asset('uploads/product_photos') }}/{{ $single_image->product_multiple_photo_name }}" alt="">
                         </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/3.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/4.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/5.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/6.jpg" alt="">
-                        </div>
+                        @endforeach
                     </div>
-                    <div class="product-thumbnil-active  owl-carousel">
+                    <div class="product-thumbnil-active owl-carousel">
                         <div class="item">
-                            <img src="assets/images/product/product-details/1.jpg" alt="">
+                            <img src="{{ asset('uploads/product_photos') }}/{{ $product_info->product_image }}" alt="">
                         </div>
+                        @foreach ($product_images as $single_image)
+                        {{-- {{ $single_image->product_multiple_photo_name }} --}}
                         <div class="item">
-                            <img src="assets/images/product/product-details/2.jpg" alt="">
+                            <img src="{{ asset('uploads/product_photos') }}/{{ $single_image->product_multiple_photo_name }}" alt="">
                         </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/3.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/4.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/5.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="assets/images/product/product-details/6.jpg" alt="">
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

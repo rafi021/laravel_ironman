@@ -18,7 +18,7 @@
                 <div class="contact-form form-style">
                     <div class="cf-msg"></div>
                     <x-alert type="success" :message="session('success_status')"/>
-                    <form action="{{ route('clientmessage') }}" method="post">
+                    <form action="{{ route('clientmessage') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12 col-sm-6">
@@ -32,6 +32,9 @@
                             </div>
                             <div class="col-12">
                                 <textarea class="contact-textarea" placeholder="Message" id="msg" name="msg"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <input class="form-control p-2" type="file" name="client_upload_file" id="client_upload_file">
                             </div>
                             <div class="col-12">
                                 <button id="submit" name="submit">SEND MESSAGE</button>

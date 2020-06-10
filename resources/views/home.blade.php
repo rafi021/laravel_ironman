@@ -10,7 +10,7 @@
 @section('dashboard_content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
                 <div class="card-header bg-teal-love">
                     <h4 class="card-title tx-dark">List of Client Messages #{{ $count ?? '' }}</h4>
@@ -26,12 +26,13 @@
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Client Name</th>
-                            <th scope="col">Email Address</th>
-                            <th scope="col">Subject</th>
-                            <th scope="col">Message</th>
-                            <th scope="col">Send at</th>
+                            <th>#</th>
+                            <th>Client Name</th>
+                            <th>Email Address</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                            <th>Send at</th>
+                            <th>File</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,6 +44,17 @@
                                 <td>{{ $client->subject }}</td>
                                 <td>{{ $client->msg }}</td>
                                 <td>{{ $client->created_at->format('d-M-Y' ) }}</td>
+                                <td>
+                                    
+                                    @if($client->client_upload_file)
+                                    <a href="{{ asset('storage/') }}/{{ $client->client_upload_file }}">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                    </a>|
+                                    <a href="{{ url('/contact/uploads/download') }}/{{ $client->id }}">
+                                        <i class="fa fa-download" aria-hidden="true"></i>
+                                    </a>
+                                    @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

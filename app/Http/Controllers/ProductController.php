@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Http\Requests\ProductRequest;
 use App\Product;
+use App\ProductImage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -12,6 +13,7 @@ use Image;
 
 class ProductController extends Controller
 {
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -53,6 +55,8 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         //dd($request->all());
+
+        //die();
         $slug_link = Str::slug($request->input('product_name') . '-' . Str::random(5));
         //dd($slug_link);
         $product_id = Product::insertGetId([
@@ -68,8 +72,9 @@ class ProductController extends Controller
             'created_at' => Carbon::now(),
         ]);
         $this->image_upload($request, $product_id);
+        $this->multiple_image__upload($request, $product_id);
 
-        return back()->with('success_status', $request->product_name . 'added successfully!');
+        return back()->with('success_status', $request->product_name . ' added successfully!');
     }
 
     /**
@@ -121,6 +126,7 @@ class ProductController extends Controller
         ]);
 
         $this->image_upload($request, $product->id);
+        $this->multiple_image__upload($request, $product->id);
 
         return redirect()->route('product.index')->with([
             'success_status' => 'Product updated Successfully!!',
@@ -145,7 +151,6 @@ class ProductController extends Controller
 
     public function image_upload(ProductRequest $request, $product_id)
     {
-
         $product = Product::findorFail($product_id);
         //dd($request->all(), $category, $request->hasFile('categoryimage'));
         if ($request->hasFile('product_image')) {
@@ -159,7 +164,7 @@ class ProductController extends Controller
             $uploaded_photo = $request->file('product_image');
             $new_photo_name = $product->id . '.' . $uploaded_photo->getClientOriginalExtension();
             $new_photo_location = $photo_location . $new_photo_name;
-            Image::make($uploaded_photo)->resize(200, 200)->save(base_path($new_photo_location), 40);
+            Image::make($uploaded_photo)->resize(600, 622)->save(base_path($new_photo_location), 40);
             //$user = User::find($category->id);
             $check = $product->update([
                 'product_image' => $new_photo_name,
@@ -174,5 +179,65 @@ class ProductController extends Controller
                 'success_status' => 'Please upload a valid image file',
             ]);
         }
+    }
+
+    public function multiple_image__upload($request, $product_id)
+    {
+        if ($request->hasFile('product_multiple_image')) {
+
+            // delete old photo first
+            $multiple_images = ProductImage::where('product_id', $product_id)->get();
+            foreach ($multiple_images as $multiple_image) {
+                if ($multiple_image->product_multiple_photo_name != 'default_product.jpg') {
+                    //delete old photo
+                    $photo_location = 'public/uploads/product_photos/';
+                    $old_photo_location = $photo_location . $multiple_image->product_multiple_photo_name;
+                    unlink(base_path($old_photo_location));
+                }
+                // delete old value of db table
+                $multiple_image->delete();
+            }
+
+            $flag = 1; // Assign a flag variable
+
+            foreach ($request->file('product_multiple_image') as $single_photo) {
+                $photo_location = 'public/uploads/product_photos/';
+                $new_photo_name = $product_id . '-' . $flag . '.' . $single_photo->getClientOriginalExtension();
+                $new_photo_location = $photo_location . $new_photo_name;
+                Image::make($single_photo)->resize(600, 622)->save(base_path($new_photo_location), 40);
+                ProductImage::insert([
+                    'product_id' => $product_id,
+                    'product_multiple_photo_name' => $new_photo_name,
+                    'created_at' => Carbon::now(),
+                ]);
+                $flag++;
+            }
+        } else {
+            return back()->with([
+                'type' => 'danger',
+                'success_status' => 'Please upload a valid image file',
+            ]);
+        }
+    }
+
+    public function markdelete(Request $request)
+    {
+        //dd($request->mark_deletes);
+        $mark_deletes = $request->mark_deletes[0];
+        $values = explode(',', $mark_deletes);
+        //dd($values);
+        foreach ($values as $value) {
+            //echo $value;
+            //dump(Product::findOrFail($value));
+
+            $product = Product::findOrFail($value);
+            $product->delete();
+        }
+        //die();
+
+        return back()->with([
+            'type' => 'success',
+            'status' => 'Marked Product deleted successfully.',
+        ]);
     }
 }

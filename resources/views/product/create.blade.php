@@ -66,14 +66,28 @@
                             <x-input-text type="number" labelName="Product Price" placeholderName="Enter Product Price" varName="product_price" dbvalue=""/>
                             <x-input-text type="number" labelName="Product Stock" placeholderName="Enter Product Stock" varName="product_stock" dbvalue=""/>
                             <div class="row">
-                                <label class="col-sm-12 col-form-label">{{__("Product Image")}} </label>
+                                <label class="col-sm-12 col-form-label">{{__("Product Thumnail Image")}} </label>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group {{ $errors->has('product_image') ? 'has-danger': ''}} ">
-                                    <input type="file" name="product_image" id="product_image" accept="image/*">
+                                    <input type="file" class="form-control" name="product_image" id="product_image" accept="image/*">
                                     @if($errors->has('product_image'))
                                     <span id="product-name" class="error text-danger" for='input-product_image'>
                                         {{ $errors->first('product_image') }}
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label class="col-sm-12 col-form-label">{{__("Product Multiple Image")}} </label>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group {{ $errors->has('product_multiple_image') ? 'has-danger': ''}} ">
+                                    <input type="file" name="product_multiple_image[]" id="product_multiple_image" accept="image/*" multiple class="form-control">
+                                    @if($errors->has('product_multiple_image'))
+                                    <span id="product-multiple-image-name" class="error text-danger" for='input-product_multiple_image'>
+                                        {{ $errors->first('product_multiple_image') }}
                                     </span>
                                     @endif
                                 </div>

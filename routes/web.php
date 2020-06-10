@@ -28,7 +28,8 @@ Auth::routes();
 
 // Route for Dashboard
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('//send/newsletter', 'HomeController@sendnewsletter')->name('newsletter');
+Route::get('/send/newsletter', 'HomeController@sendnewsletter')->name('newsletter');
+Route::get('/contact/uploads/download/{client_id}', 'HomeController@contactuploadsDownload');
 
 // Route for todo tasks
 Route::resource('/todos', 'TodoController')->middleware('auth');
@@ -46,6 +47,7 @@ Route::get('/category/restore/{category_id}', 'CategoryController@restore')->mid
 
 // Route for Product
 Route::resource('/product', 'ProductController');
+Route::post('/mark/delete', 'ProductController@markdelete')->name('markdelete');
 
 // Route for Profile
 Route::get('/profile', 'ProfileController@index')->middleware('auth')->name('profile.index');

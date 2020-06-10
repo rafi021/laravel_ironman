@@ -6,6 +6,7 @@ use App\ClientMessage;
 use App\Mail\SendNewsLetter;
 use App\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -49,5 +50,10 @@ class HomeController extends Controller
             'type' => 'success',
             'status' => 'News Letter Sent to all users in the list!!!',
         ]);
+    }
+
+    public function contactuploadsDownload($client_id)
+    {
+        return Storage::download(ClientMessage::findOrFail($client_id)->client_upload_file);
     }
 }
