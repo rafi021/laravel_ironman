@@ -17,6 +17,9 @@ Route::get('/', 'FrontendController@index')->name('index');
 Route::get('/contactus', 'FrontendController@contactus')->name('contactus');
 Route::get('/about', 'FrontendController@about')->name('about');
 Route::get('/service', 'FrontendController@service')->name('service');
+Route::get('/blogs', 'FrontendController@blog')->name('blogs');
+Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blogDetails');
+
 Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');
 Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
 
@@ -55,3 +58,6 @@ Route::get('edit/profile', 'ProfileController@editprofile')->middleware('auth')-
 Route::post('update/profile', 'ProfileController@update')->middleware('auth')->name('profile.update');
 Route::post('update/profile/password', 'ProfileController@password_update')->middleware('auth')->name('profile.password');
 Route::post('update/profile/image', 'ProfileController@image_upload')->middleware('auth')->name('profile.image');
+
+// Route for BlogPost
+Route::resource('/posts', 'BlogPostController');

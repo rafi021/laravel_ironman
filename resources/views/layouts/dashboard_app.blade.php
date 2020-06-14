@@ -96,6 +96,13 @@
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
 
+        <a href="{{ route('posts.index') }}" class="sl-menu-link {{ $activePage == 'blogspost' ? 'active' : '' }}">
+          <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-bookmark tx-20"></i>
+          <span class="menu-item-label">Blogpost</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+
         <a href="{{ route('todos.index') }}" class="sl-menu-link {{ $activePage == 'todo' ? 'active' : '' }}">
           <div class="sl-menu-item">
           <i class="menu-item-icon icon ion-calendar tx-20"></i>

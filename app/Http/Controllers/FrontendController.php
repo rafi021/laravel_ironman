@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\BlogPost;
 use App\Category;
 use App\ClientMessage;
 use App\Product;
@@ -43,6 +44,23 @@ class FrontendController extends Controller
     public function about()
     {
         return view('frontend.pages.about');
+    }
+
+    public function blog()
+    {
+        return view('frontend.pages.blog', [
+            'posts' => BlogPost::latest()->with('user')->paginate(6),
+        ]);
+    }
+
+    public function blogDetails($id)
+    {
+        $post_info = BlogPost::findOrFail($id);
+        //dd($id, $post_info);
+        return view('frontend.pages.blog-details', [
+            'post' => $post_info,
+            'categorys' => Category::latest()->take(6)->get(),
+        ]);
     }
 
     public function service()
