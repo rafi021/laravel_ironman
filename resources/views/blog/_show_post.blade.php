@@ -37,104 +37,78 @@
                                 </ul>
                             </div>
                             <div class="col-sm-5 text-right">
-                                <a href="{{ route('posts.show', $post->id + 1) }}">Next Post <i class="fa fa-long-arrow-right"></i></a>
+                                <a href="{{ route('blogDetails', $post->id + 1) }}">Next Post <i class="fa fa-long-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="comment-form-area">
                     <div class="comment-main">
-                        <h3 class="blog-title"><span>(03)</span>Comments:</h3>
+                        <h3 class="blog-title"><span>({{ $post->comments_count }}) </span>Comments:</h3>
                         <ol class="comments">
                             <li class="comment even thread-even depth-1">
+                                @forelse ($post->comments as $comment)
                                 <div class="comment-wrap">
                                     <div class="comment-theme">
                                         <div class="comment-image">
-                                            <img src="assets/images/comment/1.png" alt="Jhon">
+                                            <img src="{{ asset('uploads/profile_photos') }}/{{ $comment->user->profile_image }}" width="128px" height="128px" alt="Jhon">
                                         </div>
                                     </div>
                                     <div class="comment-main-area">
                                         <div class="comment-wrapper">
                                             <div class="sewl-comments-meta">
-                                                <h4>Lily Justin </h4>
-                                                <span>19 JAN 2019  at 2:30pm</span>
+                                                <h4>{{ $comment->user->name }}</h4>
+                                                <span>{{ $comment->created_at->format('d M y') }} at {{ $comment->created_at->format('h:i') }}</span>
                                             </div>
                                             <div class="comment-area">
-                                                <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</p>
+                                                <p>{{ $comment->commenter_message }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="comment-wrap">
-                                    <div class="comment-theme">
-                                        <div class="comment-image">
-                                            <img src="assets/images/comment/2.png" alt="Jhon">
-                                        </div>
-                                    </div>
-                                    <div class="comment-main-area">
-                                        <div class="comment-wrapper">
-                                            <div class="sewl-comments-meta">
-                                                <h4>Timberlake Justin </h4>
-                                                <span>19 JAN 2019  at 2:30pm</span>
-                                            </div>
-                                            <div class="comment-area">
-                                                <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="comment-wrap">
-                                    <div class="comment-theme">
-                                        <div class="comment-image">
-                                            <img src="assets/images/comment/3.png" alt="Jhon">
-                                        </div>
-                                    </div>
-                                    <div class="comment-main-area">
-                                        <div class="comment-wrapper">
-                                            <div class="sewl-comments-meta">
-                                                <h4>Sata Houston </h4>
-                                                <span>19 JAN 2019  at 2:30pm</span>
-                                            </div>
-                                            <div class="comment-area">
-                                                <p>simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @empty
+                                    <p>No comments yet!!</p>
+                                @endforelse
+
                             </li>
                         </ol>
                     </div>
+                    @auth
                     <div id="respond" class="sewl-comment-form comment-respond form-style">
                         <h3 id="reply-title" class="blog-title">Leave a <span>comment</span></h3>
-                        <form novalidate="" method="post" id="commentform" class="comment-form" action="#0">
+                        <x-alert :type="session('type')" :message="session('status')"/>
+                        <form novalidate="" method="post" id="commentform" class="comment-form" action="{{ route('comments.store') }}">
+                            @csrf
                             <div class="row">
                                 <div class="col-12">
                                     <div class="sewl-form-inputs no-padding-left">
                                         <div class="row">
                                             <div class="col-sm-6 col-12">
-                                                <input id="name" name="name" value="" tabindex="2" placeholder="Name" type="text">
+                                                <input id="name" name="name" value="{{ Auth::user()->name }}" tabindex="2" placeholder="Name" type="text">
                                             </div>
                                             <div class="col-sm-6 col-12">
-                                                <input id="email" name="email" value="" tabindex="3" placeholder="Email" type="email">
+                                                <input id="email" name="email" value="{{ Auth::user()->email }}" tabindex="3" placeholder="Email" type="email">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="sewl-form-textarea no-padding-right">
-                                        <textarea id="comment" name="comment" tabindex="4" rows="3" cols="30" placeholder="Write Your Comments..."></textarea>
+                                        <textarea id="comment" name="commenter_message" tabindex="4" rows="3" cols="30" placeholder="Write Your Comments...">{{ old('commenter_message') }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-submit">
                                         <input name="submit" id="submit" value="Send" type="submit">
-                                        <input name="comment_post_ID" value="1" id="comment_post_ID" type="hidden">
+                                        <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                                        <input name="blog_post_id" value="{{ $post->id }}" id="blog_post_id" type="hidden">
                                         <input name="comment_parent" id="comment_parent" value="0" type="hidden">
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
+                    @endauth
                 </div>
             </div>
             <div class="col-lg-3 col-12">
@@ -152,42 +126,21 @@
                     <div class="widget widget_recent_entries recent_post">
                         <h4 class="widget-title">Recent Post</h4>
                         <ul>
+                            @forelse ($recent_posts as $recent_post)
                             <li>
                                 <div class="post-img">
-                                    <img src="assets/images/post/1.jpg" alt="">
+                                    <img src="{{ asset('uploads/blogpost_photos') }}/{{ $recent_post->post_image }}" alt="" width="70px" height="60px">
                                 </div>
                                 <div class="post-content">
-                                    <a href="blog-details.html">Lorem Ipsum is simply dummy text of the </a>
-                                    <p>19 JAN 2019</p>
+                                    <a href="{{ route('blogDetails', ['post' => $recent_post->id]) }}">
+                                        {{  Str::limit($recent_post->title,50) }}
+                                    </a>
+                                    <p>{{ $recent_post->created_at->format('d M y') }}</p>
                                 </div>
                             </li>
-                            <li>
-                                <div class="post-img">
-                                    <img src="assets/images/post/2.jpg" alt="">
-                                </div>
-                                <div class="post-content">
-                                    <a href="blog-details.html">Lorem Ipsum is simply dummy text of the </a>
-                                    <p>19 JAN 2019</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post-img">
-                                    <img src="assets/images/post/3.jpg" alt="">
-                                </div>
-                                <div class="post-content">
-                                    <a href="blog-details.html">Lorem Ipsum is simply dummy text of the </a>
-                                    <p>19 JAN 2019</p>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="post-img">
-                                    <img src="assets/images/post/4.jpg" alt="">
-                                </div>
-                                <div class="post-content">
-                                    <a href="blog-details.html">Lorem Ipsum is simply dummy text of the </a>
-                                    <p>19 JAN 2019</p>
-                                </div>
-                            </li>
+                            @empty
+                                <p>No blog post yet!!!</p>
+                            @endforelse
                         </ul>
                     </div>
                 </aside>

@@ -68,6 +68,7 @@ class BlogPostController extends Controller
         return view('blog.show', [
             'post' => $post,
             'categorys' => Category::all(),
+            'recent_posts' => BlogPost::latest()->take(6)->get(),
         ]);
     }
 

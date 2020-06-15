@@ -61,3 +61,6 @@ Route::post('update/profile/image', 'ProfileController@image_upload')->middlewar
 
 // Route for BlogPost
 Route::resource('/posts', 'BlogPostController');
+
+// Route for Comments
+Route::resource('/comments', 'PostCommentController')->only(['store']);

@@ -55,11 +55,13 @@ class FrontendController extends Controller
 
     public function blogDetails($id)
     {
-        $post_info = BlogPost::findOrFail($id);
+        $post_info = BlogPost::withCount('comments')->findOrFail($id);
+        $recent_posts = BlogPost::latest()->take(6)->get();
         //dd($id, $post_info);
         return view('frontend.pages.blog-details', [
             'post' => $post_info,
             'categorys' => Category::latest()->take(6)->get(),
+            'recent_posts' => $recent_posts,
         ]);
     }
 
