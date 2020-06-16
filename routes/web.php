@@ -18,6 +18,7 @@ Route::get('/contactus', 'FrontendController@contactus')->name('contactus');
 Route::get('/about', 'FrontendController@about')->name('about');
 Route::get('/service', 'FrontendController@service')->name('service');
 Route::get('/blogs', 'FrontendController@blog')->name('blogs');
+Route::get('/shop', 'FrontendController@shop')->name('shop');
 Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blogDetails');
 
 Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');

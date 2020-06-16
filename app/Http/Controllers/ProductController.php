@@ -56,7 +56,6 @@ class ProductController extends Controller
     {
         //dd($request->all());
 
-        //die();
         $slug_link = Str::slug($request->input('product_name') . '-' . Str::random(5));
         //dd($slug_link);
         $product_id = Product::insertGetId([

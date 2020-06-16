@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-7 col-sm-6 col-6">
                     <div class="logo">
-                        <a href="index.html">
+                        <a href="{{ route('index') }}">
                     <img src="{{ asset('frontend_assets') }}/images/logo.png" alt="">
                     </a>
                     </div>
@@ -44,8 +44,8 @@
                             <li>
                                 <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
-                                    <li><a href="shop.html">Shop Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
+                                    <li><a href="{{ route('shop') }}">Shop Page</a></li>
+                                    <li><a href="#">Product Details</a></li>
                                     <li><a href="cart.html">Shopping cart</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>

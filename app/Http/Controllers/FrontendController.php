@@ -65,6 +65,14 @@ class FrontendController extends Controller
         ]);
     }
 
+    public function shop()
+    {
+        return view('frontend.pages.shop', [
+            'categorys' => Category::with('products')->get(),
+            'products' => Product::all(),
+        ]);
+    }
+
     public function service()
     {
         return view('service');
