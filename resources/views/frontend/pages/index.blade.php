@@ -1,4 +1,8 @@
-@extends('layouts.frontend_app')
+@extends('layouts.frontend_app', [
+    'breadCrumb' => 'false',
+    'pageName' => 'Home Page',
+    'pageTitle' => 'Home'
+])
 
 @section('frontend_content')
     <!-- slider-area start -->
@@ -16,7 +20,7 @@
                             <div class="featured-img">
                                 <img src="{{ asset('uploads/category_photos') }}/{{ $category->categoryimage }}" alt="">
                                 <div class="featured-content">
-                                    <a href="shop.html">{{ $category->categoryname }}</a>
+                                    <a href="{{ route('shop') }}">{{ $category->categoryname }}</a>
                                 </div>
                             </div>
                         </div>

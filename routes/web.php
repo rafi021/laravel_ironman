@@ -65,3 +65,6 @@ Route::resource('/posts', 'BlogPostController');
 
 // Route for Comments
 Route::resource('/comments', 'PostCommentController')->only(['store']);
+
+// Route for Cart
+Route::post('/cart/store', 'CartController@store')->name('cart.store');
