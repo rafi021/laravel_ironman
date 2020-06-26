@@ -119,19 +119,19 @@
                                         <img src="{{ asset('uploads/product_photos') }}/{{ $cart_item->product->product_image }}" width="70px" height="80px" alt="">
                                     </div>
                                     <div class="cart-content">
-                                        <a href="cart.html">{{ $cart_item->product->product_name}}</a>
+                                        <a href="{{ route('cart.index') }}">{{ $cart_item->product->product_name}}</a>
                                         <span>QTY : {{ $cart_item->product_quantity }}</span>
                                         <p>$ {{ $cart_item->product->product_price * $cart_item->product_quantity }}</p>
                                         @php
                                             $subtotal += ( $cart_item->product->product_price * $cart_item->product_quantity)
                                         @endphp
-                                        <i class="fa fa-times"></i>
+                                        <a href="{{ route('cart.remove', ['cart' => $cart_item->id]) }}" class="pd-r-1"><i class="fa fa-times"></i></a>
                                     </div>
                                 </li>
                                 @endforeach
                                 <li>Subtotol: <span class="pull-right">${{ $subtotal }}</span></li>
                                 <li>
-                                    <button>Check Out</button>
+                                    <a href="{{ route('cart.index') }}" class="btn btn-danger"> Go to Cart</a>
                                 </li>
                             </ul>
                         </li>

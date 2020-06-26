@@ -68,3 +68,9 @@ Route::resource('/comments', 'PostCommentController')->only(['store']);
 
 // Route for Cart
 Route::post('/cart/store', 'CartController@store')->name('cart.store');
+Route::get('/cart', 'CartController@index')->name('cart.index');
+Route::get('/cart/remove/{cart}', 'CartController@cartremove')->name('cart.remove');
+Route::post('/cart/update', 'CartController@update')->name('cart.update');
+
+// Route for Coupoun
+Route::resource('coupon', 'CouponController');

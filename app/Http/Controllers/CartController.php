@@ -10,6 +10,13 @@ use Illuminate\Support\Str;
 
 class CartController extends Controller
 {
+    public function index()
+    {
+        return view('frontend.pages.cart', [
+            'cart' => Cart::all(),
+        ]);
+    }
+
     public function store(Request $request)
     {
         if (Cookie::get('g_cart_id')) {
@@ -35,5 +42,28 @@ class CartController extends Controller
 
         }
         return redirect()->back();
+    }
+
+    public function cartremove($cart)
+    {
+        Cart::findOrFail($cart)->delete();
+        return back()->with([
+            'cart_status' => 'Item deleted Successfully!!',
+            'type' => 'warning',
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+        foreach ($request->product_info as $cart_id => $product_quantity) {
+            Cart::findOrFail($cart_id)->update([
+                'product_quantity' => $product_quantity,
+            ]);
+        }
+
+        return back()->with([
+            'cart_status' => 'Item updated Successfully!!',
+            'type' => 'success',
+        ]);
     }
 }
