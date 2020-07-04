@@ -8,6 +8,13 @@
 @endsection
 
 @section('dashboard_content')
+<h4>
+    @if (Auth::user()->user_role ==1)
+        You are admin
+    @else 
+        You are customer
+    @endif
+</h4>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-12 col-md-12 col-sm-12">

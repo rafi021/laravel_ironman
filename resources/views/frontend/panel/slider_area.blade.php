@@ -13,7 +13,7 @@
                                     <div class="slider-shape">
                                         <h2 data-swiper-parallax="-500">{{ $category->categoryname }}</h2>
                                         <p data-swiper-parallax="-400">{{ $category->categorydescription }}</p>
-                                        <a href="shop.html" data-swiper-parallax="-300">Shop Now</a>
+                                        <a href="{{ route('shop') }}" data-swiper-parallax="-300">Shop Now</a>
                                     </div>
                                 </div>
                             </div>

@@ -34,64 +34,65 @@
     <!-- vendor css -->
     <link href="{{ asset('dashboard_assets') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="{{ asset('dashboard_assets') }}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="{{ asset('dashboard_assets') }}/lib/select2/css/select2.min.css" rel="stylesheet">
 
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{ asset('dashboard_assets') }}/css/starlight.css">
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-100v">
+    <div class="d-flex align-items-center justify-content-center bg-sl-primary ht-md-100v">
 
-    <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 bg-white">
+    <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white">
         <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">{{ env('APP_NAME') }}<span class="tx-info tx-normal">admin</span></div>
         <div class="tx-center mg-b-60">Professional Admin Template Design</div>
-
-        <form method="POST" action="{{ route('login') }}">
+        
+        <form method="POST" action="{{ route('customer.register.form') }}">
             @csrf
-            <div class="form-group">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                @error('email')
+        <div class="form-group">
+            <input id="name" type="text" placeholder="Enter your fullname" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+            @error('name')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+        </div><!-- form-group -->
+
+        <div class="form-group">
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Enter your email address">
+            @error('email')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-                @enderror
-            </div><!-- form-group -->
-            <div class="form-group">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                @error('password')
+            @enderror
+        </div><!-- form-group -->
+
+        <div class="form-group">
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Enter your password">
+            @error('password')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-                @enderror
-                @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="tx-info tx-12 d-block mg-t-10">Forgot password?</a>
-                @endif
-            </div><!-- form-group -->
-            <div class="form-group row">
-                <div class="col-md-6 offset-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input ml-0" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label" for="remember"> {{ __('Remember Me') }} </label>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-info btn-block">Sign In</button>
+            @enderror
+        </div><!-- form-group -->
+
+        <div class="form-group">
+            <input id="password-confirm" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password" placeholder="Enter confirm password">
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div><!-- form-group -->
+
+        <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and terms of use of our website.</div>
+        <button type="submit" class="btn btn-info btn-block">Sign Up</button>
         </form>
 
-        <a href="{{ route('login.github') }}" class="btn btn-secondary btn-block mt-2">
-            <i class="fa fa-github" aria-hidden="true"></i>
-            Login with GitHub
-        </a>
-        <a href="" class="btn btn-danger btn-block mt-2">
-            <i class="fa fa-google" aria-hidden="true"></i>
-            Login with Google
-        </a>
-        <div class="mg-t-60 tx-center">Not yet a member? 
-            @if (Route::has('customer.register'))
-                <a href="{{ route('customer.register') }}" class="tx-info">Sign Up</a>
-            @endif
+        <div class="mg-t-40 tx-center">Already have an account? 
+            <a href="{{ route('login') }}" class="tx-info">Sign In</a>
         </div>
     </div><!-- login-wrapper -->
     </div><!-- d-flex -->
@@ -99,6 +100,16 @@
     <script src="{{ asset('dashboard_assets') }}/lib/jquery/jquery.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/popper.js/popper.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/bootstrap/bootstrap.js"></script>
+    <script src="{{ asset('dashboard_assets') }}/lib/select2/js/select2.min.js"></script>
+    <script>
+      $(function(){
+        'use strict';
+
+        $('.select2').select2({
+          minimumResultsForSearch: Infinity
+        });
+      });
+    </script>
 
   </body>
 </html>

@@ -11,6 +11,8 @@
         <div class="row">
             <div class="col-12">
                 <x-alert :type="session('type')" :message="session('cart_status')"/>
+                <x-alert type="danger" :message="$error_message"/>
+
                 <form action="{{ route('cart.update', ) }}" method="POST">
                     @csrf
                     <table class="table-responsive cart-wrap">
@@ -72,12 +74,18 @@
                                     </li>
                                     <li><a class="btn btn-outline-indigo" href="{{ route('shop') }}">Continue Shopping</a></li>
                                 </ul>
-                                <h3>Cupon</h3>
-                                <p>Enter Your Cupon Code if You Have One</p>
-                                <div class="cupon-wrap">
-                                    <input type="text" placeholder="Cupon Code">
-                                    <button>Apply Cupon</button>
+                                <h3>Coupon</h3>
+                                <p>Enter Your Coupon Code if You Have One</p>
+                                <div class="coupon-wrap">
+                                    <input type="text" placeholder="Coupon Code" id="apply_coupon_input" value="{{ $coupon_name }}">
+                                    <button type="button" id="apply_coupon_btn">Apply Coupon</button>
                                 </div>
+                            </div>
+                            @foreach ($valid_coupons as $coupon)    
+                                <button class="btn btn-success mt-3 available_coupon_btn" value="{{ $coupon->coupon_name }}" type="button">{{ $coupon->coupon_name }} - Shop {{ $coupon->minimum_purchase_amount }} /-</button>
+                            @endforeach
+                            <div class="row p-3 mt-3">
+                                <x-alert type="danger" :message="$error_message"/>
                             </div>
                         </div>
                         <div class="col-xl-3 offset-xl-5 col-lg-4 offset-lg-3 col-md-6">
@@ -85,7 +93,9 @@
                                 <h3>Cart Totals</h3>
                                 <ul>
                                     <li><span class="pull-left">Subtotal </span>${{ $cart_sub_total }}</li>
-                                    <li><span class="pull-left"> Total </span> $-----</li>
+                                    <li><span class="pull-left">Discount % </span>{{ $discount_amount }}%</li>
+                                    <li><span class="pull-left">Discount Amount </span>${{ ($cart_sub_total*$discount_amount)/100 }}</li>
+                                    <li><span class="pull-left"> Total </span> ${{ $cart_sub_total-(($cart_sub_total*$discount_amount)/100) }}</li>
                                 </ul>
                                 @if ($flag == 1)
                                     <a class="btn btn-danger disabled">Please resolve the issue first</a> 
@@ -101,4 +111,20 @@
     </div>
 </div>
 <!-- cart-area end -->
+@endsection
+
+@section('frontend.script')
+    <script>
+        $(document).ready(function(){
+            $('#apply_coupon_btn').click(function(){
+                let apply_coupon_input = $('#apply_coupon_input').val();
+                let link_to_go = "{{ url('cart') }}/"+apply_coupon_input;
+                // console.log(link_to_go);
+                window.location.href= link_to_go;
+            });
+            $('.available_coupon_btn').click(function(){
+                let apply_coupon_input = $('#apply_coupon_input').val($(this).val());
+            });
+        });
+    </script>
 @endsection

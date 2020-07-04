@@ -48,7 +48,7 @@
         <div class="signin-logo tx-center tx-24 tx-bold tx-inverse">{{ env('APP_NAME') }}<span class="tx-info tx-normal">admin</span></div>
         <div class="tx-center mg-b-60">Professional Admin Template Design</div>
 
-        <form method="POST" action="{{ route('login') }}">
+        <form method="POST" action="{{ route('customer.login.form') }}">
             @csrf
             <div class="form-group">
                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -79,15 +79,6 @@
             </div>
             <button type="submit" class="btn btn-info btn-block">Sign In</button>
         </form>
-
-        <a href="{{ route('login.github') }}" class="btn btn-secondary btn-block mt-2">
-            <i class="fa fa-github" aria-hidden="true"></i>
-            Login with GitHub
-        </a>
-        <a href="" class="btn btn-danger btn-block mt-2">
-            <i class="fa fa-google" aria-hidden="true"></i>
-            Login with Google
-        </a>
         <div class="mg-t-60 tx-center">Not yet a member? 
             @if (Route::has('customer.register'))
                 <a href="{{ route('customer.register') }}" class="tx-info">Sign Up</a>

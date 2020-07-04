@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Tohoney - Home Page</title>
+    {{-- <meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000"> --}}
+    <title>{{ env('APP_NAME') }} - Home Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {{-- Style Start --}}

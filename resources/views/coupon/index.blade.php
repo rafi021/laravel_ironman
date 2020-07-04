@@ -11,7 +11,7 @@
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-9 col-md-9 m-auto" >
+            <div class="col-lg-9 col-md-6 m-auto" >
                 <div class="card">
                     <div class="card-header tx-white bg-teal">
                         <h4 class="card-title tx-white">List of Coupons # {{ $count ?? '' }}</h4>

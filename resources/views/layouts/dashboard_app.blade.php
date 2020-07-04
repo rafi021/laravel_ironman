@@ -60,93 +60,105 @@
         </div><!-- input-group -->
 
     <label class="sidebar-label">Navigation</label>
+    @if (Auth::user()->user_role == 1)
     <div class="sl-sideleft-menu">
-        <a href="{{ route('home') }}" class="sl-menu-link {{ $activePage == 'home' ? 'active' : '' }}">
+      <a href="{{ route('home') }}" class="sl-menu-link {{ $activePage == 'home' ? 'active' : '' }}">
+      <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+          <span class="menu-item-label">Dashboard</span>
+      </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+
+      <a href="{{ route('category.index') }}" class="sl-menu-link {{ $activePage == 'category' ? 'active' : '' }}">
+          <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-navicon-round tx-20"></i>
+          <span class="menu-item-label">Category</span>
+          </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+
+      <a href="{{ route('product.index') }}" class="sl-menu-link {{ $activePage == 'product' ? 'active' : '' }}">
         <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
-            <span class="menu-item-label">Dashboard</span>
+        <i class="menu-item-icon icon ion-plus-circled tx-20"></i>
+        <span class="menu-item-label">Product</span>
         </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+      </a><!-- sl-menu-link -->
 
-        <a href="{{ route('category.index') }}" class="sl-menu-link {{ $activePage == 'category' ? 'active' : '' }}">
-            <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-navicon-round tx-20"></i>
-            <span class="menu-item-label">Category</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+      <a href="{{ route('coupon.index') }}" class="sl-menu-link {{ $activePage == 'coupon' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion ion-code-working"></i>
+        <span class="menu-item-label">Coupon</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
 
-        <a href="{{ route('product.index') }}" class="sl-menu-link {{ $activePage == 'product' ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion-plus-circled tx-20"></i>
-          <span class="menu-item-label">Product</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+      <a href="{{ route('testimonial.index') }}" class="sl-menu-link {{ $activePage == 'testimonial' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-magnet tx-20"></i>
+        <span class="menu-item-label">Testimonial</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
 
-        <a href="{{ route('coupon.index') }}" class="sl-menu-link {{ $activePage == 'coupon' ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion ion-code-working"></i>
-          <span class="menu-item-label">Coupon</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+      <a href="{{ route('contact.index') }}" class="sl-menu-link {{ $activePage == 'contact' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-person-stalker tx-20"></i>
+        <span class="menu-item-label">Contact</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
 
-        <a href="{{ route('testimonial.index') }}" class="sl-menu-link {{ $activePage == 'testimonial' ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion-magnet tx-20"></i>
-          <span class="menu-item-label">Testimonial</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+      <a href="{{ route('posts.index') }}" class="sl-menu-link {{ $activePage == 'blogspost' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-bookmark tx-20"></i>
+        <span class="menu-item-label">Blogpost</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
 
-        <a href="{{ route('contact.index') }}" class="sl-menu-link {{ $activePage == 'contact' ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion-person-stalker tx-20"></i>
-          <span class="menu-item-label">Contact</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+      <a href="{{ route('todos.index') }}" class="sl-menu-link {{ $activePage == 'todo' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-calendar tx-20"></i>
+        <span class="menu-item-label">Todo Tasks</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+    
+      <a href="{{ route('profile.index') }}" class="sl-menu-link {{ ($activePage == 'userprofile' || $activePage == 'editprofile') ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-person tx-20"></i>
+        <span class="menu-item-label">Profile</span>
+        <i class="menu-item-arrow fa fa-angle-down"></i>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+      <ul class="sl-menu-sub nav flex-column">
+        <li class="nav-item"><a href="{{ route('profile.index') }}" class="nav-link {{ $activePage == 'userprofile' ? 'active' : '' }}">Profile List</a></li>
+        <li class="nav-item"><a href="{{ route('profile.edit') }}" class="nav-link {{ $activePage == 'editprofile' ? 'active' : '' }}">Edit Profile</a></li>
+      </ul>
 
-        <a href="{{ route('posts.index') }}" class="sl-menu-link {{ $activePage == 'blogspost' ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion-bookmark tx-20"></i>
-          <span class="menu-item-label">Blogpost</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-
-        <a href="{{ route('todos.index') }}" class="sl-menu-link {{ $activePage == 'todo' ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion-calendar tx-20"></i>
-          <span class="menu-item-label">Todo Tasks</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-      
-        <a href="{{ route('profile.index') }}" class="sl-menu-link {{ ($activePage == 'userprofile' || $activePage == 'editprofile') ? 'active' : '' }}">
-          <div class="sl-menu-item">
-          <i class="menu-item-icon icon ion-person tx-20"></i>
-          <span class="menu-item-label">Profile</span>
+      <a href="#" class="sl-menu-link">
+        <div class="sl-menu-item">
+          <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
+          <span class="menu-item-label">Charts</span>
           <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="{{ route('profile.index') }}" class="nav-link {{ $activePage == 'userprofile' ? 'active' : '' }}">Profile List</a></li>
-          <li class="nav-item"><a href="{{ route('profile.edit') }}" class="nav-link {{ $activePage == 'editprofile' ? 'active' : '' }}">Edit Profile</a></li>
-        </ul>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+      <ul class="sl-menu-sub nav flex-column">
+        <li class="nav-item"><a href="chart-morris.html" class="nav-link">Morris Charts</a></li>
+        <li class="nav-item"><a href="chart-flot.html" class="nav-link">Flot Charts</a></li>
+        <li class="nav-item"><a href="chart-chartjs.html" class="nav-link">Chart JS</a></li>
+        <li class="nav-item"><a href="chart-rickshaw.html" class="nav-link">Rickshaw</a></li>
+        <li class="nav-item"><a href="chart-sparkline.html" class="nav-link">Sparkline</a></li>
+      </ul>
+    </div><!-- sl-sideleft-menu -->
+    @else 
+    <div class="sl-sideleft-menu">
+      <a href="{{ route('customer.home') }}" class="sl-menu-link {{ $activePage == 'home' ? 'active' : '' }}">
+      <div class="sl-menu-item">
+          <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
+          <span class="menu-item-label">Customer Dashboard</span>
+      </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+    </div>
+    @endif
+    <br>
+  </div><!-- sl-sideleft -->
 
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>
-            <span class="menu-item-label">Charts</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="chart-morris.html" class="nav-link">Morris Charts</a></li>
-          <li class="nav-item"><a href="chart-flot.html" class="nav-link">Flot Charts</a></li>
-          <li class="nav-item"><a href="chart-chartjs.html" class="nav-link">Chart JS</a></li>
-          <li class="nav-item"><a href="chart-rickshaw.html" class="nav-link">Rickshaw</a></li>
-          <li class="nav-item"><a href="chart-sparkline.html" class="nav-link">Sparkline</a></li>
-        </ul>
-      </div><!-- sl-sideleft-menu -->
 
-      <br>
-    </div><!-- sl-sideleft -->
     <!-- ########## END: LEFT PANEL ########## -->
 
     <!-- ########## START: HEAD PANEL ########## -->

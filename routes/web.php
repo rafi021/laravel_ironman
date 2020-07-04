@@ -19,16 +19,26 @@ Route::get('/about', 'FrontendController@about')->name('about');
 Route::get('/service', 'FrontendController@service')->name('service');
 Route::get('/blogs', 'FrontendController@blog')->name('blogs');
 Route::get('/shop', 'FrontendController@shop')->name('shop');
+Route::get('/faq', 'FrontendController@faq')->name('faq');
+Route::get('/wishlist', 'FrontendController@wishlist')->name('wishlist');
 Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blogDetails');
 
 Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');
 Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
+Route::get('/customer/register', 'FrontendController@customerregister')->name('customer.register');
+Route::post('/customer/register', 'FrontendController@customerregisterpost')->name('customer.register.form');
+// Route::get('/customer/login', 'FrontendController@customerlogin')->name('customer.login');
+// Route::post('/customer/login', 'FrontendController@customerloginpost')->name('customer.login.form');
 
 // Testimonial of Frontend routes
 Route::resource('/testimonial', 'TestimonialController');
 
 // Route for authenrtication
 Auth::routes();
+
+// Github route for login
+Route::get('login/github', 'GitHubController@redirectToProvider')->name('login.github');
+Route::get('login/github/callback', 'GitHubController@handleProviderCallback');
 
 // Route for Dashboard
 Route::get('/home', 'HomeController@index')->name('home');
@@ -71,6 +81,12 @@ Route::post('/cart/store', 'CartController@store')->name('cart.store');
 Route::get('/cart', 'CartController@index')->name('cart.index');
 Route::get('/cart/remove/{cart}', 'CartController@cartremove')->name('cart.remove');
 Route::post('/cart/update', 'CartController@update')->name('cart.update');
+Route::get('/cart/{coupon_name}', 'CartController@index')->name('cart.coupon');
 
 // Route for Coupoun
 Route::resource('coupon', 'CouponController');
+
+// Route for Customer
+Route::get('customer/home', 'CustomerController@home')->name('customer.home');
+
+// Route for WishList

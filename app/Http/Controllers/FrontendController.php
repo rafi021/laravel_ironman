@@ -8,14 +8,17 @@ use App\ClientMessage;
 use App\Product;
 use App\ProductImage;
 use App\Testimonial;
+use App\User;
+use App\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class FrontendController extends Controller
 {
     public function index()
     {
-
         return view('frontend.pages.index', [
             'categories' => Category::all(),
             'products' => Product::latest()->take(8)->get(),
@@ -113,5 +116,41 @@ class FrontendController extends Controller
             'success_status' => 'Thanks for you Message, we will soon get back to you',
             'type' => 'success',
         ]);
+    }
+
+    public function faq()
+    {
+        return view('frontend.pages.faq');
+    }
+
+    public function wishlist()
+    {
+        return view('frontend.pages.wishlist');
+    }
+
+    public function customerregister()
+    {
+        return view('customer.register');
+    }
+
+    public function customerregisterpost(Request $request)
+    {
+        //dd($request->all());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        User::insert([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'user_role' => 2,
+            'password' => Hash::make($request->input('password')),
+            'created_at' => Carbon::now(),
+        ]);
+        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            return redirect()->route('customer.home');
+        }
     }
 }

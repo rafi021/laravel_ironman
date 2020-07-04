@@ -24,3 +24,5 @@
 <script src="{{ asset('frontend_assets') }}/js/jquery-ui.min.js"></script>
 <!-- main js -->
 <script src="{{ asset('frontend_assets') }}/js/scripts.js"></script>
+
+@yield('frontend.script')
