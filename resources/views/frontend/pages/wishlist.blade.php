@@ -9,8 +9,9 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('cart.store') }}" method="POST">
-                    @csrf
+                <x-alert :type="session('type')" :message="session('wish_status')"/>
+                {{-- <form action="{{ route('cart.store') }}" method="POST">
+                    @csrf --}}
                     <table class="table-responsive cart-wrap">
                         <thead>
                             <tr>
@@ -23,17 +24,33 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($wishlists as $wishlist)
                             <tr>
-                                    <td class="images"><img src="assets/images/cart/4.jpg" alt=""></td>
-                                    <td class="product"><a href="single-product.html">Coconut Oil</a></td>
-                                    <td class="ptice">$139.00</td>
+                                <td class="images"><img src="{{ asset('uploads/product_photos') }}/{{ $wishlist->product->product_image }}" alt=""></td>
+                                <td class="product"><a href="{{ route('singleproduct', ['slug' => $wishlist->product->slug]) }}">{{ $wishlist->product->product_name }}</a></td>
+                                <td class="ptice">${{ $wishlist->product->product_price }}</td>
+                                @if ($wishlist->product->product_stock>0)
                                     <td class="stock">In Stock</td>
-                                    <td class="addcart"><a href="cart.html">Add to Cart</a></td>
-                                    <td class="remove"><i class="fa fa-times"></i></td>
+                                    <td class="addcart">
+                                    <form action="{{ route('cart.store') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $wishlist->product->id }}">
+                                        <input type="hidden" value="1" name="product_quantity"/>
+                                        <a href="#" onclick="event.preventDefault();
+                                        this.parentElement.submit()">ADD TO CART</a>
+                                    </form>
+                                    </td>    
+                                @else
+                                    <td class="stock"><span>Out of Stock</span></td>
+                                    <td class="addcart"><span>Out of Stock</span></td>
+                                @endif
+                                
+                                <td class="remove"><a href="{{ route('wishlist.remove', $wishlist) }}"><i class="fa fa-times"></i></a></td>
                             </tr>
+                            @endforeach
                         </tbody>
                         </table>
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
         </div>

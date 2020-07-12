@@ -10,6 +10,7 @@ class Wishlist extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'generated_wish_id',
         'product_id',
     ];
 

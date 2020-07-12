@@ -87,6 +87,12 @@ Route::get('/cart/remove/{cart}', 'CartController@cartremove')->name('cart.remov
 Route::post('/cart/update', 'CartController@update')->name('cart.update');
 Route::get('/cart/{coupon_name}', 'CartController@index')->name('cart.coupon');
 
+// Route for Cart
+Route::post('/wishlist/store', 'WishlistController@store')->name('wishlist.store');
+Route::get('/wishlist', 'WishlistController@index')->name('wishlist.index');
+
+Route::get('/wishlist/remove/{wishlist}', 'WishlistController@wishlistremove')->name('wishlist.remove');
+
 // Route for Coupoun
 Route::resource('coupon', 'CouponController');
 

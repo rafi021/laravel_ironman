@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Wishlist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Str;
 
 class WishlistController extends Controller
 {
@@ -14,17 +17,9 @@ class WishlistController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('frontend.pages.wishlist', [
+            'wishlists' => Wishlist::all(),
+        ]);
     }
 
     /**
@@ -35,41 +30,28 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        if (Cookie::get('g_wish_id')) {
+            // if cookie is present then get the wish id from cookie facade
+            $generated_wish_id = Cookie::get('g_wish_id');
+        } else {
+            // Else generate a random id to wish id cooke and then set it using cookie facade
+            $generated_wish_id = Str::random(7) . rand(1, 1000);
+            Cookie::queue('g_wish_id', $generated_wish_id, 1440); // name, value, $mintues
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Wishlist $wishlist)
-    {
-        //
-    }
+        if (Wishlist::where('generated_wish_id', $generated_wish_id)->where('product_id', $request->input('product_id'))->exists()) {
+            // product id is exists then increment product quantity
+            //Wishlist::where('generated_wish_id', $generated_wish_id)->where('product_id', $request->input('product_id'))->increment('product_quantity', $request->input('product_quantity'));
+        } else {
+            // no previous product id found
+            Wishlist::insert([
+                'generated_wish_id' => $generated_wish_id,
+                'product_id' => $request->input('product_id'),
+                'created_at' => Carbon::now(),
+            ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Wishlist $wishlist)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Wishlist  $wishlist
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Wishlist $wishlist)
-    {
-        //
+        }
+        return redirect()->back();
     }
 
     /**
@@ -78,8 +60,12 @@ class WishlistController extends Controller
      * @param  \App\Wishlist  $wishlist
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Wishlist $wishlist)
+    public function wishlistremove(Wishlist $wishlist)
     {
-        //
+        $wishlist->delete();
+        return back()->with([
+            'wish_status' => 'Item deleted Successfully!!',
+            'type' => 'warning',
+        ]);
     }
 }

@@ -20,7 +20,7 @@
                                 <li><a href="{{ route('customer.register') }}">Register</a></li>
                                 <li><a href="{{ route('cart.index') }}">Cart</a></li>
                                 <li><a href="{{ route('checkout') }}">Checkout</a></li>
-                                <li><a href="wishlist.html">wishlist</a></li>
+                                <li><a href="{{ route('wishlist.index') }}">wishlist</a></li>
                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); 
                                     document.getElementById('logout-form').submit();">
                                 <i class="icon ion-power"></i> Log Out</a></li>
@@ -56,17 +56,17 @@
                                     <li class="{{ $pageTitle =='Shop' ? 'active' : '' }}"><a href="{{ route('shop') }}">Shop Page</a></li>
                                     <li class="{{ $pageTitle =='Cart' ? 'active' : '' }}"><a href="{{ route('cart.index') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wishlist.index') }}">Wishlist</a></li>
                                 </ul>
                             </li>
                             <li>
                                 <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown_style">
-                                    <li class="{{ $pageTitle =='About' ? 'active' : '' }}"><a href="{{ route('about') }}">About Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
+                                    {{-- <li class="{{ $pageTitle =='About' ? 'active' : '' }}"><a href="{{ route('about') }}">About Page</a></li> --}}
+                                    {{-- <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('cart.index') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wishlist.index') }}">Wishlist</a></li> --}}
                                     <li><a href="{{ route('faq') }}">FAQ</a></li>
                                 </ul>
                             </li>
@@ -85,33 +85,30 @@
                     <ul class="search-cart-wrapper d-flex">
                         <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a></li>
                         <li>
-                            <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
+                            <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>{{ total_wish_count() }}</span></a>
                             <ul class="cart-wrap dropdown_style">
+                                @php
+                                    $subtotal_wish = 0
+                                @endphp
+                                @foreach (wish_items() as $wish_item)
                                 <li class="cart-items">
                                     <div class="cart-img">
-                                        <img src="{{ asset('frontend_assets') }}/images/cart/1.jpg" alt="">
+                                        <img src="{{ asset('uploads/product_photos') }}/{{ $wish_item->product->product_image }}" width="70px" height="80px" alt="">
                                     </div>
                                     <div class="cart-content">
-                                        <a href="cart.html">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
+                                        <a href="{{ route('wishlist.index') }}">{{ Str::limit($wish_item->product->product_name,10)}}</a>
+                                        <span>QTY : {{ $wish_item->product_quantity }}</span>
+                                        <p>${{ $wish_item->product->product_price}}</p>
                                         <i class="fa fa-times"></i>
                                     </div>
                                 </li>
-                                <li class="cart-items">
-                                    <div class="cart-img">
-                                        <img src="{{ asset('frontend_assets') }}/images/cart/3.jpg" alt="">
-                                    </div>
-                                    <div class="cart-content">
-                                        <a href="cart.html">Pure Nature Product</a>
-                                        <span>QTY : 1</span>
-                                        <p>$35.00</p>
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                </li>
-                                <li>Subtotol: <span class="pull-right">$70.00</span></li>
+                                @php
+                                    $subtotal_wish += ($wish_item->product->product_price)
+                                @endphp
+                                @endforeach
+                                <li>Subtotol: <span class="pull-right">${{ $subtotal_wish }}</span></li>
                                 <li>
-                                    <button>Check Out</button>
+                                    <a href="{{ route('wishlist.index') }}" class="btn btn-danger">Go to Wishlist</a>
                                 </li>
                             </ul>
                         </li>
@@ -169,20 +166,18 @@
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Shop({{ total_product_count() }}) </a>
                                 <ul aria-expanded="false">
                                     <li><a href="{{ route('shop') }}">Shop Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('cart.index') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wishlist.index') }}">Wishlist</a></li>
                                 </ul>
                             </li>
                             <li class="sidemenu-items">
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Pages </a>
                                 <ul aria-expanded="false">
                                     <li><a href="{{ route('about') }}">About Page</a></li>
-                                    <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('cart.index') }}">Shopping cart</a></li>
                                     <li><a href="{{ route('checkout') }}">Checkout</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                    <li><a href="{{ route('wishlist.index') }}">Wishlist</a></li>
                                     <li><a href="{{ route('faq') }}">FAQ</a></li>
                                 </ul>
                             </li>
@@ -190,7 +185,7 @@
                                 <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Blog</a>
                                 <ul aria-expanded="false">
                                     <li><a href="{{ route('blogs') }}">Blog</a></li>
-                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                    {{-- <li><a href="blog-details.html">Blog Details</a></li> --}}
                                 </ul>
                             </li>
                             <li><a href="{{ route('contactus') }}">Contact</a></li>
