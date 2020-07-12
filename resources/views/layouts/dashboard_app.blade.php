@@ -145,6 +145,7 @@
         <li class="nav-item"><a href="chart-sparkline.html" class="nav-link">Sparkline</a></li>
       </ul>
     </div><!-- sl-sideleft-menu -->
+    {{-- Customer Dashboard Layout --}}
     @else 
     <div class="sl-sideleft-menu">
       <a href="{{ route('customer.home') }}" class="sl-menu-link {{ $activePage == 'home' ? 'active' : '' }}">
@@ -153,6 +154,28 @@
           <span class="menu-item-label">Customer Dashboard</span>
       </div><!-- menu-item -->
       </a><!-- sl-menu-link -->
+
+      <a href="{{ route('shop') }}" class="sl-menu-link {{ $activePage == 'shop' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-bag tx-20"></i>
+        <span class="menu-item-label">Shop Page</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+
+      <a href="{{ route('cart.index') }}" class="sl-menu-link {{ $activePage == 'cart' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-cash tx-20"></i>
+        <span class="menu-item-label">Cart Page</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+
+      <a href="{{ route('checkout') }}" class="sl-menu-link {{ $activePage == 'checkout' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon  ion-checkmark-circled tx-20"></i>
+        <span class="menu-item-label">Checkout Page</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+     
     </div>
     @endif
     <br>
@@ -174,13 +197,22 @@
               <span class="logged-name">{{ Auth::user()->name }}</span>
               <img src="{{ asset('uploads/profile_photos') }}/{{ Auth::user()->profile_image }}" class="wd-32 rounded-circle" alt="">
             </a>
-            <div class="dropdown-menu dropdown-menu-header wd-200">
+            @if (Auth::user()->user_role ==2)
+              <div class="dropdown-menu dropdown-menu-header wd-200 bg-dark">
+            @else
+              <div class="dropdown-menu dropdown-menu-header wd-200">
+            @endif
+
               <ul class="list-unstyled user-profile-nav">
                 <li><a href="{{ route('profile.edit') }}"><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
-                <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
-                <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
-                <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
-                <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
+                @if (Auth::user()->user_role == 1)
+                  <li><a href=""><i class="icon ion-bag"></i>Settings</a></li>
+                  <li><a href=""><i class="icon ion-cash"></i>Collections</a></li>
+                @else
+                  <li><a href="{{ route('shop') }}"><i class="icon ion-bag"></i>Shop Page</a></li>
+                  <li><a href="{{ route('cart.index') }}"><i class="icon ion-cash"></i>Go to Cart</a></li>
+                  <li><a href="{{ route('checkout') }}"><i class="icon ion-checkmark-circled"></i>Checkout</a></li>
+                @endif
                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); 
                 document.getElementById('logout-form').submit();">
                 <i class="icon ion-power"></i> Sign Out</a></li>

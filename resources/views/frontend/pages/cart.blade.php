@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                             @php
-                                $cart_sub_total = 0; 
+                                $cart_sub_total = 0;
                                 $flag = 0;
                             @endphp
                             @forelse ( cart_items() as $cart_item)
@@ -37,7 +37,7 @@
                                 <td class="product">
                                     <a href="{{ route('singleproduct', ['slug' => $cart_item->product->slug]) }}">{{ $cart_item->product->product_name }}</a>
                                     <br>
-                                    @if ($cart_item->product->product_stock<$cart_item->product_quantity)    
+                                    @if ($cart_item->product->product_stock<$cart_item->product_quantity)
                                         <span class="text-white lead"> Available: {{ $cart_item->product->product_stock }}. delete or reduce item to continue
                                         </span>
                                         @php
@@ -81,7 +81,7 @@
                                     <button type="button" id="apply_coupon_btn">Apply Coupon</button>
                                 </div>
                             </div>
-                            @foreach ($valid_coupons as $coupon)    
+                            @foreach ($valid_coupons as $coupon)
                                 <button class="btn btn-success mt-3 available_coupon_btn" value="{{ $coupon->coupon_name }}" type="button">{{ $coupon->coupon_name }} - Shop {{ $coupon->minimum_purchase_amount }} /-</button>
                             @endforeach
                             <div class="row p-3 mt-3">
@@ -93,14 +93,23 @@
                                 <h3>Cart Totals</h3>
                                 <ul>
                                     <li><span class="pull-left">Subtotal </span>${{ $cart_sub_total }}</li>
+                                    @php
+                                        session(['cart_sub_total' => $cart_sub_total]);
+                                    @endphp
                                     <li><span class="pull-left">Discount % </span>{{ $discount_amount }}%</li>
                                     <li><span class="pull-left">Discount Amount </span>${{ ($cart_sub_total*$discount_amount)/100 }}</li>
+                                    @php
+                                        session(['discount_amount' => (($cart_sub_total*$discount_amount)/100)]);
+                                    @endphp
                                     <li><span class="pull-left"> Total </span> ${{ $cart_sub_total-(($cart_sub_total*$discount_amount)/100) }}</li>
+                                    @php
+                                        session(['cart_total' => ($cart_sub_total-(($cart_sub_total*$discount_amount)/100))]);
+                                    @endphp
                                 </ul>
                                 @if ($flag == 1)
-                                    <a class="btn btn-danger disabled">Please resolve the issue first</a> 
+                                    <a class="btn btn-danger disabled">Please resolve the issue first</a>
                                 @else
-                                    <a href="checkout.html">Proceed to Checkout</a>
+                                    <a href="{{ route('checkout') }}">Proceed to Checkout</a>
                                 @endif
                             </div>
                         </div>

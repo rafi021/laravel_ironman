@@ -23,6 +23,10 @@ Route::get('/faq', 'FrontendController@faq')->name('faq');
 Route::get('/wishlist', 'FrontendController@wishlist')->name('wishlist');
 Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blogDetails');
 
+// Checkout routes
+Route::get('/checkout', 'CheckoutController@index')->name('checkout');
+Route::post('/checkout/post', 'CheckoutController@placeorder')->name('checkout.post');
+
 Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');
 Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
 Route::get('/customer/register', 'FrontendController@customerregister')->name('customer.register');

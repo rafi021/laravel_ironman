@@ -20,6 +20,7 @@
     <!-- responsive css -->
     <link rel="stylesheet" href="{{ asset('frontend_assets') }}/css/responsive.css">
     <!-- modernizr css -->
+    
     {{-- Material Icons --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css">
     <script src="{{ asset('frontend_assets') }}/js/vendor/modernizr-2.8.3.min.js"></script>

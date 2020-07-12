@@ -13,11 +13,20 @@
                         <li>
                             <a href="javascript:void(0);"><i class="fa fa-user"></i> My Account <i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown_style">
+                                @auth
+                                <li><a href="{{ route('customer.home') }}">Dashboard</a></li>
+                                @endauth
                                 <li><a href="{{ route('login') }}">Login</a></li>
                                 <li><a href="{{ route('customer.register') }}">Register</a></li>
                                 <li><a href="{{ route('cart.index') }}">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="{{ route('checkout') }}">Checkout</a></li>
                                 <li><a href="wishlist.html">wishlist</a></li>
+                                <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); 
+                                    document.getElementById('logout-form').submit();">
+                                <i class="icon ion-power"></i> Log Out</a></li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+                                    @csrf
+                                </form>
                             </ul>
                         </li>
                         <li><a href="{{ route('customer.register') }}"> Login/Register </a></li>
@@ -46,7 +55,7 @@
                                 <ul class="dropdown_style">
                                     <li class="{{ $pageTitle =='Shop' ? 'active' : '' }}"><a href="{{ route('shop') }}">Shop Page</a></li>
                                     <li class="{{ $pageTitle =='Cart' ? 'active' : '' }}"><a href="{{ route('cart.index') }}">Shopping cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="{{ route('checkout') }}">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                 </ul>
                             </li>
@@ -56,7 +65,7 @@
                                     <li class="{{ $pageTitle =='About' ? 'active' : '' }}"><a href="{{ route('about') }}">About Page</a></li>
                                     <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('cart.index') }}">Shopping cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="{{ route('checkout') }}">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                     <li><a href="{{ route('faq') }}">FAQ</a></li>
                                 </ul>
@@ -162,7 +171,7 @@
                                     <li><a href="{{ route('shop') }}">Shop Page</a></li>
                                     <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('cart.index') }}">Shopping cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="{{ route('checkout') }}">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
                                 </ul>
                             </li>
@@ -172,9 +181,9 @@
                                     <li><a href="{{ route('about') }}">About Page</a></li>
                                     <li><a href="single-product.html">Product Details</a></li>
                                     <li><a href="{{ route('cart.index') }}">Shopping cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="{{ route('checkout') }}">Checkout</a></li>
                                     <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="faq.html">FAQ</a></li>
+                                    <li><a href="{{ route('faq') }}">FAQ</a></li>
                                 </ul>
                             </li>
                             <li class="sidemenu-items">
