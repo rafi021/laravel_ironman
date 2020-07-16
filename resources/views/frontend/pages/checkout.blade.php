@@ -8,6 +8,7 @@
 <!-- checkout-area start -->
 <div class="checkout-area ptb-100">
     <div class="container">
+        <x-alert :type="session('type')" :message="session('order_status')"/>
         <div class="row">
             <div class="col-lg-8">
                 <div class="checkout-form form-style">
@@ -29,30 +30,17 @@
                             </div>
                             <div class="col-sm-6 col-12">
                                 <p>Country *</p>
-                                <select id="s_country" name="country_id">
+                                <select id="s_country_1" name="country_id">
                                     <option value="1">Select a country</option>
-                                    <option value="2">bangladesh</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="4">Afghanistan</option>
-                                    <option value="5">Ghana</option>
-                                    <option value="6">Albania</option>
-                                    <option value="7">Bahrain</option>
-                                    <option value="8">Colombia</option>
-                                    <option value="9">Dominican Republic</option>
+                                    @foreach ($countries as $country)    
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-sm-6 col-12">
                                 <p>Town/City *</p>
-                                <select id="s_city" name="city_id">
-                                    <option value="1">Select a city</option>
-                                    <option value="2">bangladesh</option>
-                                    <option value="3">Algeria</option>
-                                    <option value="4">Afghanistan</option>
-                                    <option value="5">Ghana</option>
-                                    <option value="6">Albania</option>
-                                    <option value="7">Bahrain</option>
-                                    <option value="8">Colombia</option>
-                                    <option value="9">Dominican Republic</option>
+                                <select id="s_city_1" name="city_id">
+                                    <option value="">Select a city</option>
                                 </select>
                             </div>
                             <div class="col-12">
@@ -70,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                                <input id="toggle2" type="checkbox">
+                                <input id="toggle2" type="checkbox" name="custom_shipping_status" value="1">
                                 <label class="fontsize" for="toggle2">Ship to a different address?</label>
                                 <div class="row" id="open2">
                                     <div class="col-12">
@@ -87,30 +75,17 @@
                                     </div>
                                     <div class="col-12">
                                         <p>Country *</p>
-                                        <select id="s_country" name="shipping_country_id">
+                                        <select id="s_country_2" name="shipping_country_id">
                                             <option value="1">Select a country</option>
-                                            <option value="2">bangladesh</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">Afghanistan</option>
-                                            <option value="5">Ghana</option>
-                                            <option value="6">Albania</option>
-                                            <option value="7">Bahrain</option>
-                                            <option value="8">Colombia</option>
-                                            <option value="9">Dominican Republic</option>
+                                            @foreach ($countries as $country)    
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
                                         </select>
                                     </div>
                                     <div class="col-12">
                                         <p>Town/City *</p>
-                                        <select id="s_city" name="shipping_city_id">
+                                        <select id="s_city_2" name="shipping_city_id">
                                             <option value="1">Select a city</option>
-                                            <option value="2">bangladesh</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">Afghanistan</option>
-                                            <option value="5">Ghana</option>
-                                            <option value="6">Albania</option>
-                                            <option value="7">Bahrain</option>
-                                            <option value="8">Colombia</option>
-                                            <option value="9">Dominican Republic</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
@@ -164,4 +139,71 @@
     </div>
 </div>
 <!-- checkout-area end -->
+@endsection
+
+@section('frontend.script')
+<script>
+    $(document).ready(function(){
+        $('#s_country_1').select2();
+        $('#s_country_2').select2();
+        $('#s_city_1').select2();
+        $('#s_city_2').select2();
+
+        // ajax request start
+        $('#s_country_1').change(function(){
+            let country_id = $(this).val();
+            // alert(`counrty id: ${country_id}`);
+
+            // Ajax Setup
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+
+            // Ajax Response Start to Server Database
+            $.ajax({
+                type: 'POST',
+                url: '/get/city/list/ajax',
+                data: {
+                        country_id : country_id
+                    },
+                success: function(server_data){
+                    // alert(server_data);
+                    $('#s_city_1').html(server_data);
+                }
+            });
+            // Ajax Response End to Server Database
+        });
+        // Ajax request end
+        // ajax request start
+        $('#s_country_2').change(function(){
+            let country_id = $(this).val();
+            // alert(`counrty id: ${country_id}`);
+
+            // Ajax Setup
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+
+            // Ajax Response Start to Server Database
+            $.ajax({
+                type: 'POST',
+                url: '/get/city/list/ajax',
+                data: {
+                        country_id : country_id
+                    },
+                success: function(server_data){
+                    // alert(server_data);
+                    $('#s_city_2').html(server_data);
+                }
+            });
+            // Ajax Response End to Server Database
+        });
+        // Ajax request end
+    });
+    
+</script>
 @endsection

@@ -24,5 +24,6 @@
 <script src="{{ asset('frontend_assets') }}/js/jquery-ui.min.js"></script>
 <!-- main js -->
 <script src="{{ asset('frontend_assets') }}/js/scripts.js"></script>
-
+{{-- Select2 JS --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 @yield('frontend.script')

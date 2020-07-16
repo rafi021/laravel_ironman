@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Shipping extends Model
 {
-    //
+    protected $fillable = [
+        'name',
+        'email',
+        'phone_number',
+        'address',
+        'country_id',
+        'city_id',
+        'order_notes',
+    ];
 }

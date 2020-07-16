@@ -87,10 +87,9 @@ Route::get('/cart/remove/{cart}', 'CartController@cartremove')->name('cart.remov
 Route::post('/cart/update', 'CartController@update')->name('cart.update');
 Route::get('/cart/{coupon_name}', 'CartController@index')->name('cart.coupon');
 
-// Route for Cart
+// Route for Wishlist
 Route::post('/wishlist/store', 'WishlistController@store')->name('wishlist.store');
 Route::get('/wishlist', 'WishlistController@index')->name('wishlist.index');
-
 Route::get('/wishlist/remove/{wishlist}', 'WishlistController@wishlistremove')->name('wishlist.remove');
 
 // Route for Coupoun
@@ -99,4 +98,5 @@ Route::resource('coupon', 'CouponController');
 // Route for Customer
 Route::get('customer/home', 'CustomerController@home')->name('customer.home');
 
-// Route for WishList
+// Route for Ajax Requests
+Route::post('/get/city/list/ajax', 'CheckoutController@getCityListAjax');

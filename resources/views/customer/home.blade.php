@@ -9,7 +9,7 @@
 
 @section('dashboard_content')
 @include('frontend.panel.style')
-@include('frontend.panel.script')
+{{-- @include('frontend.panel.script') --}}
 <!-- cart-area start -->
 <div class="cart-area ptb-100">
 
@@ -84,12 +84,12 @@
                                 <h3>Coupon</h3>
                                 <p>Enter Your Coupon Code if You Have One</p>
                                 <div class="coupon-wrap">
-                                    <input type="text" placeholder="Coupon Code" id="apply_coupon_input" value="{{ $coupon_name }}">
-                                    <button type="button" id="apply_coupon_btn">Apply Coupon</button>
+                                    <input type="text" placeholder="Coupon Code" id="apply_coupon_input_1" value="{{ $coupon_name }}">
+                                    <button type="button" id="apply_coupon_btn_1">Apply Coupon</button>
                                 </div>
                             </div>
                             @foreach ($valid_coupons as $coupon)
-                                <button class="btn btn-success mt-3 available_coupon_btn" value="{{ $coupon->coupon_name }}" type="button">{{ $coupon->coupon_name }} - Shop {{ $coupon->minimum_purchase_amount }} /-</button>
+                                <button class="btn btn-success mt-3 available_coupon_btn_1" value="{{ $coupon->coupon_name }}" type="button">{{ $coupon->coupon_name }} - Shop {{ $coupon->minimum_purchase_amount }} /-</button>
                             @endforeach
                             <div class="row p-3 mt-3">
                                 <x-alert type="danger" :message="$error_message"/>
@@ -127,19 +127,20 @@
     </div>
 </div>
 <!-- cart-area end -->
+<script>
+    $(document).ready(function(){
+        $('#apply_coupon_btn_1').click(function(){
+            let apply_coupon_input = $('#apply_coupon_input_1').val();
+            let link_to_go = "{{ url('customer/home') }}/"+apply_coupon_input;
+            // console.log(link_to_go);
+            window.location.href= link_to_go;
+        });
+        $('.available_coupon_btn_1').click(function(){
+            let apply_coupon_input = $('#apply_coupon_input_1').val($(this).val());
+        });
+    });
+</script>
 @endsection
 @section('frontend.script')
-    <script>
-        $(document).ready(function(){
-            $('#apply_coupon_btn').click(function(){
-                let apply_coupon_input = $('#apply_coupon_input').val();
-                let link_to_go = "{{ url('cart') }}/"+apply_coupon_input;
-                // console.log(link_to_go);
-                window.location.href= link_to_go;
-            });
-            $('.available_coupon_btn').click(function(){
-                let apply_coupon_input = $('#apply_coupon_input').val($(this).val());
-            });
-        });
-    </script>
+
 @endsection
