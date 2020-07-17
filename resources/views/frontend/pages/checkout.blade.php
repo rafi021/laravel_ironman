@@ -109,7 +109,7 @@
                             <li>{{ Str::limit($cart_item->product->product_name,30) }} X {{ $cart_item->product_quantity }}<span class="pull-right">$ {{ $cart_item->product->product_price * $cart_item->product_quantity}}</span></li>
                         @endforeach
                         <li>Subtotal <span class="pull-right"><strong>${{ session('cart_sub_total') }}</strong></span></li>
-                        <li>Discount <span class="pull-right"><strong>-${{ session('discount_amount') }}</strong></span></li>
+                        <li>Discount ({{ session('coupon_name') }}) <span class="pull-right"><strong>-${{ session('discount_amount') }}</strong></span></li>
                         <li>Shipping <span class="pull-right">Free</span></li>
                         <li>Total<span class="pull-right">${{ session('cart_total') }}</span></li>
                     </ul>
