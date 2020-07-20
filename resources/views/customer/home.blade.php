@@ -34,6 +34,7 @@
             <table class="table table-hover">
                 <thead class="text-primary">
                     <th>#</th>
+                    <th>View Details</th>
                     <th>order date</th>
                     <th>payment method</th>
                     <th>sub total</th>
@@ -42,25 +43,82 @@
                 </thead>
                 <tbody>
                     @forelse ($orders as $order)
-                        
                         <tr>
                             <td> {{ $loop->index+1 }} </td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal{{ $order->id }}">Order Details</button>
+                                <div class="modal fade" id="modal{{ $order->id }}" tabindex="-1" role="dialog" aria-labelledby="modal{{ $order->id }}Title" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="#modal{{ $order->id }}Title">Order Number #{{ $order->id }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table class="table table-striped table-inverse table-responsive">
+                                                            <thead class="thead-inverse">
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Product Name</th>
+                                                                    <th>Quantity</th>
+                                                                    <th>Unit Price</th>
+                                                                    <th>Sub total</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($order->orderDetails as $item)    
+                                                                    <tr>
+                                                                        <td>{{ $loop->index+1 }}</td>
+                                                                        <td>{{ $item->product->product_name}}</td>
+                                                                        <td>{{ $item->product_quantity }}</td>
+                                                                        <td>{{ $item->product->product_price }}</td>
+                                                                        <td>{{ $item->product_price }}</td>
+                                                                    </tr>
+                                                                    @endforeach
+                                                                    <tr>
+                                                                        <td colspan="4">
+                                                                            Total Payable Amount:
+                                                                        </td>
+                                                                        <td><strong> ${{ $order->total }}</strong></td>
+                                                                    </tr>
+                                                                    <tr class="mt-3">
+                                                                        <td colspan="50">
+                                                                            Billing Address: 
+                                                                            <p>Recipent Name: {{ $order->billing->name }}</p>
+                                                                            <p>Mobile Number: {{ $order->billing->phone_number}}</p>
+                                                                            <p>Address: {{ $order->billing->address }}</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="mt-3">
+                                                                        <td colspan="50">Shipping Address: 
+                                                                            <p>Recipent Name: {{ $order->shipping->name }}</p>
+                                                                            <p>Mobile Number: {{ $order->shipping->phone_number}}</p>
+                                                                            <p>Address: {{ $order->shipping->address }}</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                             <td>{{ $order->created_at }}</td>
                             <td>{{ $order->paymentMethod->payment_name }}</td>
                             <td>{{ $order->sub_total }}</td>
                             <td>{{ $order->discount_amount }}({{ $order->coupon_name }})</td>
                             <td>{{ $order->total }}</td>
-                        </tr>
-                        <tr>
-                            @foreach ($order->orderDetails as $item)    
-                            <td colspan="50">{{ $item->product->product_name }}</td>
-                            @endforeach
-                        </tr>
-                        <tr>
-                            <td colspan="50">Billing Address: {{ $order->billing->name }},{{ $order->billing->address }}, {{ $order->billing->phone_number}}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="50">Shipping Address: {{ $order->shipping->name }},{{ $order->shipping->address }}, {{ $order->shipping->phone_number}}</td>
                         </tr>
                     @empty
                         <tr>
