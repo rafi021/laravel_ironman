@@ -44,6 +44,14 @@ Auth::routes();
 Route::get('login/github', 'GitHubController@redirectToProvider')->name('login.github');
 Route::get('login/github/callback', 'GitHubController@handleProviderCallback');
 
+// Facebook route for login
+Route::get('login/facebook', 'FaceBookController@redirectToProvider')->name('login.facebook');
+Route::get('login/facebook/callback', 'FaceBookController@handleProviderCallback');
+
+// Google route for lgin
+Route::get('login/google', 'GoogleController@redirectToProvider')->name('login.google');
+Route::get('login/google/callback', 'GoogleController@handleProviderCallback');
+
 // Route for Dashboard
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/send/newsletter', 'HomeController@sendnewsletter')->name('newsletter');

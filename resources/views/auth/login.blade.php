@@ -84,7 +84,11 @@
             <i class="fa fa-github" aria-hidden="true"></i>
             Login with GitHub
         </a>
-        <a href="" class="btn btn-danger btn-block mt-2">
+        <a href="{{ route('login.facebook') }}" class="btn btn-info btn-block mt-2">
+            <i class="fa fa-facebook-official" aria-hidden="true"></i>
+            Login with Facebook
+        </a>
+        <a href="{{ route('login.google') }}" class="btn btn-danger btn-block mt-2">
             <i class="fa fa-google" aria-hidden="true"></i>
             Login with Google
         </a>
