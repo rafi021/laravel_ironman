@@ -101,14 +101,26 @@ class CheckoutController extends Controller
             $cart_item->forceDelete();
         }
 
-        // Send a order confirmation mail to Customer
-        Mail::to($request->input('email'))->send(new PurchaseConfirm);
+        // Send a order confirmation mail to Customer with order details
+        $order = Order::with(['orderDetails', 'billing', 'shipping', 'paymentMethod'])
+            ->where('id', $order_id)
+            ->get();
+
+        Mail::to($request->input('email'))->send(new PurchaseConfirm($order));
 
         //return back with success message
         return redirect('cart')->with([
             'type' => 'success',
             'cart_status' => 'Your Order placed successfully!!!!',
         ]);
+    }
+
+    public function testmail()
+    {
+        $order = Order::with(['orderDetails', 'billing', 'shipping', 'paymentMethod'])
+            ->where('id', 5)
+            ->get();
+        return (new PurchaseConfirm($order))->render();
     }
 
     public function getCityListAjax(Request $request)

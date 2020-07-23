@@ -26,6 +26,7 @@ Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blog
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@index')->name('checkout');
 Route::post('/checkout/post', 'CheckoutController@placeorder')->name('checkout.post');
+Route::get('/test/mail', 'CheckoutController@testmail')->name('test.mail');
 
 Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');
 Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
@@ -48,7 +49,7 @@ Route::get('login/github/callback', 'GitHubController@handleProviderCallback');
 Route::get('login/facebook', 'FaceBookController@redirectToProvider')->name('login.facebook');
 Route::get('login/facebook/callback', 'FaceBookController@handleProviderCallback');
 
-// Google route for lgin
+// Google route for login
 Route::get('login/google', 'GoogleController@redirectToProvider')->name('login.google');
 Route::get('login/google/callback', 'GoogleController@handleProviderCallback');
 

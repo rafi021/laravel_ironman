@@ -10,14 +10,15 @@ class PurchaseConfirm extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $order_infos = "";
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($order_details)
     {
-        //
+        $this->order_infos = $order_details;
     }
 
     /**
@@ -27,6 +28,8 @@ class PurchaseConfirm extends Mailable
      */
     public function build()
     {
-        return $this->view('Mail.purchaseconfirm');
+        return $this->view('Mail.purchaseconfirm', [
+            'orders' => $this->order_infos,
+        ]);
     }
 }
