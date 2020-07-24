@@ -113,3 +113,7 @@ Route::get('/customer/invoice/download/{order_id}', 'CustomerController@invoiceD
 
 // Route for Ajax Requests
 Route::post('/get/city/list/ajax', 'CheckoutController@getCityListAjax');
+
+// Route for striper payment
+Route::get('stripe', 'StripePaymentController@stripe')->name('stripe.get');
+Route::post('/stripe/post', 'StripePaymentController@stripePost')->name('stripe.post');

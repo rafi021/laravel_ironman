@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class CustomerController extends Controller
 {
@@ -34,7 +35,7 @@ class CustomerController extends Controller
         ];
 
         $pdf = PDF::loadView('pdf.invoice', $data);
-        return $pdf->download('invoice.pdf');
+        return $pdf->download('invoice_' . $order_id . '.pdf');
         // return view('PDF.invoice', [
         //     'orders' => $orders,
         // ]);

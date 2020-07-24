@@ -101,6 +101,13 @@ class CheckoutController extends Controller
             $cart_item->forceDelete();
         }
 
+        // if payment method is credit card then Go to stripe page
+        if ($request->input('payment_method') == 4) {
+            return view('Payment.stripe.stripe', [
+                'order' => Order::find($order_id),
+            ]);
+        }
+
         // Send a order confirmation mail to Customer with order details
         $order = Order::with(['orderDetails', 'billing', 'shipping', 'paymentMethod'])
             ->where('id', $order_id)
