@@ -20,4 +20,23 @@ class CustomerController extends Controller
             'count' => Order::count(),
         ]);
     }
+
+    public function invoiceDownload($order_id)
+    {
+        $order = Order::find($order_id);
+        $billing_info = $order->billing;
+        $order_details = $order->orderDetails;
+        //dd($order, $billing_info, $order_details);
+        $data = [
+            'order' => $order,
+            'billing_info' => $billing_info,
+            'order_details' => $order_details,
+        ];
+
+        $pdf = PDF::loadView('pdf.invoice', $data);
+        return $pdf->download('invoice.pdf');
+        // return view('PDF.invoice', [
+        //     'orders' => $orders,
+        // ]);
+    }
 }

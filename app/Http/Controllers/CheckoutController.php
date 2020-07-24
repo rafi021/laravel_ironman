@@ -108,6 +108,8 @@ class CheckoutController extends Controller
 
         Mail::to($request->input('email'))->send(new PurchaseConfirm($order));
 
+        // Send SMS to customer for order confirmation
+
         //return back with success message
         return redirect('cart')->with([
             'type' => 'success',
@@ -121,6 +123,32 @@ class CheckoutController extends Controller
             ->where('id', 5)
             ->get();
         return (new PurchaseConfirm($order))->render();
+    }
+
+    public function testsms()
+    {
+        $order = Order::with(['orderDetails', 'billing', 'shipping', 'paymentMethod'])
+            ->where('id', 5)
+            ->first();
+
+        // api code of bluksms.bd
+        $url = "http://66.45.237.70/api.php";
+        $number = $order->billing->phone_number; //"88017,88018,88019";
+        $text = "Your Order#"+$order->id+"has benn successfully placed.Net payable amount is: $"+$order->total;
+        $data = array(
+            'username' => "YourID",
+            'password' => "YourPasswd",
+            'number' => "$number",
+            'message' => "$text",
+        );
+
+        $ch = curl_init(); // Initialize cURL
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $smsresult = curl_exec($ch);
+        $p = explode("|", $smsresult);
+        $sendstatus = $p[0];
     }
 
     public function getCityListAjax(Request $request)

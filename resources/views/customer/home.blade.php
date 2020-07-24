@@ -40,6 +40,7 @@
                     <th>sub total</th>
                     <th>discount</th>
                     <th>total</th>
+                    <th>Download Invoice</th>
                 </thead>
                 <tbody>
                     @forelse ($orders as $order)
@@ -119,6 +120,7 @@
                             <td>{{ $order->sub_total }}</td>
                             <td>{{ $order->discount_amount }}({{ $order->coupon_name }})</td>
                             <td>{{ $order->total }}</td>
+                            <td><a href="{{ route('invoice.download', $order->id) }}"><i class="fa fa-download"></i>Download Invoice</a></td>
                         </tr>
                     @empty
                         <tr>

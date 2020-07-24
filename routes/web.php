@@ -26,7 +26,10 @@ Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blog
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@index')->name('checkout');
 Route::post('/checkout/post', 'CheckoutController@placeorder')->name('checkout.post');
+
+// Test mail and sms routes
 Route::get('/test/mail', 'CheckoutController@testmail')->name('test.mail');
+Route::get('/test/sms', 'CheckoutController@testsms')->name('test.sms');
 
 Route::get('/product/details/{slug}', 'FrontendController@singleproduct')->name('singleproduct');
 Route::post('/client/message', 'FrontendController@clientMessage')->name('clientmessage');
@@ -106,6 +109,7 @@ Route::resource('coupon', 'CouponController');
 
 // Route for Customer
 Route::get('customer/home', 'CustomerController@home')->name('customer.home');
+Route::get('/customer/invoice/download/{order_id}', 'CustomerController@invoiceDownload')->name('invoice.download');
 
 // Route for Ajax Requests
 Route::post('/get/city/list/ajax', 'CheckoutController@getCityListAjax');
