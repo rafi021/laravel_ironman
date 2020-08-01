@@ -11,8 +11,12 @@ class StripePaymentController extends Controller
 {
     public function stripe()
     {
-
-        return view('Payment.stripe.stripe');
+        if(session('order_id'))
+        {
+            return view('Payment.stripe.stripe');
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -30,9 +34,24 @@ class StripePaymentController extends Controller
             "source" => $request->stripeToken,
             "description" => "Order #" . $order->id . " payment has been done",
         ]);
+        // update payment status
+        $order->update([
+            'payment_status' => 2,
+        ]);
+        //Session::flash('success', 'Payment successful!');
 
-        Session::flash('success', 'Payment successful!');
-
-        return redirect()->route('cart.index');
+        // remove session informations
+        session([
+            'order_id' => '',
+            'coupon_name' => '',
+            'discount_amount' => '',
+            'cart_sub_total' => '',
+            'cart_total' => '',
+        ]);
+        
+        return redirect()->route('cart.index')->with([
+            'type' => 'success',
+            'cart_status' => 'Payment Successfull!',
+        ]);
     }
 }

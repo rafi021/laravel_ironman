@@ -30,7 +30,8 @@
             <div class="panel panel-default credit-card-box">
                 <div class="panel-heading display-table" >
                     <div class="row display-tr" >
-                        <h3 class="panel-title display-td" >Payment Details</h3>
+                        <h3 class="panel-title display-td">Payment Details</h3>
+                        <h3 class="panel-title display-td">Order# {{ session('order_id') }}</h3>
                         <div class="display-td" >                            
                             <img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png">
                         </div>
@@ -44,7 +45,8 @@
                             <p>{{ Session::get('success') }}</p>
                         </div>
                     @endif
-  
+                    
+                    {{-- {{ print_r(session()->all()) }} --}}
                     <form 
                             role="form" 
                             action="{{ route('stripe.post') }}" 
@@ -95,8 +97,8 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-12">
-                                <input type="hidden" name="order_id" value="{{ $order->id }}">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (${{ $order->total }})</button>
+                                <input type="hidden" name="order_id" value="{{ session('order_id') }}">
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (${{ session('order_id') !='' ? App\Order::find(session('order_id'))->total : '' }})</button>
                             </div>
                         </div>
                     </form>

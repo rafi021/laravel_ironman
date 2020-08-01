@@ -11,7 +11,7 @@
                 <div class="col-md-6 col-12">
                     <ul class="d-flex account_login-area">
                         <li>
-                            <a href="javascript:void(0);"><i class="fa fa-user"></i> My Account <i class="fa fa-angle-down"></i></a>
+                            <a href="javascript:void(0);"><i class="fa fa-user"></i>{{ Auth::user() ? Auth::user()->name: 'My Account'  }}<i class="fa fa-angle-down"></i></a>
                             <ul class="dropdown_style">
                                 @auth
                                 <li><a href="{{ route('customer.home') }}">Dashboard</a></li>

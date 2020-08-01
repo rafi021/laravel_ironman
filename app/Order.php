@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+
+    protected $fillable = [
+        'payment_status'
+    ];
+
     public function orderDetails()
     {
         return $this->hasMany('App\OrderDetails');

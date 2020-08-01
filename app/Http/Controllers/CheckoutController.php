@@ -103,9 +103,11 @@ class CheckoutController extends Controller
 
         // if payment method is credit card then Go to stripe page
         if ($request->input('payment_method') == 4) {
-            return view('Payment.stripe.stripe', [
-                'order' => Order::find($order_id),
-            ]);
+            session(['order_id' => $order_id]);
+            return redirect('stripe');
+            // return view('Payment.stripe.stripe', [
+            //     'order' => Order::find($order_id),
+            //]);
         }
 
         // Send a order confirmation mail to Customer with order details

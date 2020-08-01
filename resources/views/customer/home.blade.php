@@ -37,6 +37,7 @@
                     <th>View Details</th>
                     <th>order date</th>
                     <th>payment method</th>
+                    <th>payment status</th>
                     <th>sub total</th>
                     <th>discount</th>
                     <th>total</th>
@@ -117,6 +118,13 @@
                             </td>
                             <td>{{ $order->created_at }}</td>
                             <td>{{ $order->paymentMethod->payment_name }}</td>
+                            <td>
+                                @if ($order->payment_status == 1)
+                                <span class="badge badge-danger">unpaid</span>
+                                @else
+                                <span class="badge badge-success">paid</span>
+                                @endif
+                            </td>                 
                             <td>{{ $order->sub_total }}</td>
                             <td>{{ $order->discount_amount }}({{ $order->coupon_name }})</td>
                             <td>{{ $order->total }}</td>

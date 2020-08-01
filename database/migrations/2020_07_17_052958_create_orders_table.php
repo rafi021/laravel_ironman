@@ -21,6 +21,7 @@ class CreateOrdersTable extends Migration
             $table->string('coupon_name');
             $table->float('total');
             $table->integer('payment_method');
+            $table->integer('payment_status')->default(1);
             $table->unsignedBigInteger('billing_id');
             $table->unsignedBigInteger('shipping_id');
             $table->timestamps();
