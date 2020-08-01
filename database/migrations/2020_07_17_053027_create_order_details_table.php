@@ -19,9 +19,12 @@ class CreateOrderDetailsTable extends Migration
             $table->foreign('order_id')
                 ->references('id')
                 ->on('orders');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('product_quantity');
             $table->unsignedBigInteger('product_price');
+            $table->longText('review')->nullable();
+            $table->integer('stars')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

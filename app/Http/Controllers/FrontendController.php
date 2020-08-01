@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\BlogPost;
 use App\Category;
 use App\ClientMessage;
+use App\OrderDetails;
 use App\Product;
 use App\ProductImage;
 use App\Testimonial;
@@ -31,11 +32,35 @@ class FrontendController extends Controller
         $product_info = Product::where('slug', $slug)->get()->first();
         $product_images = ProductImage::where('product_id', $product_info->id)->get();
         $related_products = Product::where('category_id', $product_info->category_id)->where('slug', '!=', $slug)->get();
+
+        // show review form to enlisted customer
+        $show_review_form = 0;
+        if(OrderDetails::where('user_id', Auth::id())
+                        ->where('product_id',$product_info->id)
+                        ->whereNull('review')
+                        ->exists()){
+                    $order_detail_id = OrderDetails::where('user_id', Auth::id())
+                            ->where('product_id',$product_info->id)
+                            ->whereNull('review')
+                            ->first()->id;
+            $show_review_form = 1;
+        }else{
+            $show_review_form = 2;
+            $order_detail_id =0;
+        }
+
+        // here find total reviews of this product
+        $reviews = OrderDetails::where('product_id', $product_info->id)
+                                ->whereNotNull('review')->get();
+        
         // dd($product_info, $related_product);
         return view('frontend.pages.single_product', [
             'product_info' => $product_info,
             'related_products' => $related_products,
             'product_images' => $product_images,
+            'show_review_form' => $show_review_form,
+            'order_detail_id' => $order_detail_id,
+            'reviews' => $reviews,
         ]);
     }
 
@@ -152,5 +177,16 @@ class FrontendController extends Controller
         if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             return redirect()->route('customer.home');
         }
+    }
+
+    public function reviewpost(Request $request)
+    {   
+        //dd($request->all());
+        OrderDetails::findOrFail($request->input('order_detail_id'))->update([
+            'stars' => $request->input('stars'),
+            'review' => $request->input('review'),
+        ]);
+
+        return back();
     }
 }

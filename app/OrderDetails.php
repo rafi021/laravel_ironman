@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderDetails extends Model
 {
+    protected $fillable = [
+        'stars',
+        'review',
+    ];
     public function order()
     {
         return $this->belongsTo('App\Order');

@@ -152,28 +152,31 @@
                     <div class="tab-pane" id="review">
                         <div class="review-wrap">
                             <ul>
+                                @foreach ($reviews as $review)
                                 <li class="review-items">
                                     <div class="review-img">
                                         <img src="assets/images/comment/1.png" alt="">
                                     </div>
                                     <div class="review-content">
-                                        <h3><a href="#">GERALD BARNES</a></h3>
-                                        <span>27 Jun, 2019 at 2:30pm</span>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at estei to bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
+                                        <h3><a href="#">{{ App\User::find($review->user_id)->name }}</a></h3>
+                                        <span>{{ $review->updated_at->format('d M Y  H:i A') }}</span>
+                                        <p>{{ $review->review }}</p>
                                         <ul class="rating">
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
+                                            @for ($i = 0; $i < $review->stars; $i++)
+                                                <li><i class="fa fa-star"></i></li>
+                                            @endfor
                                         </ul>
                                     </div>
                                 </li>
+                                @endforeach
                             </ul>
                         </div>
                         @auth
+                       @if($show_review_form==1)
                         <div class="add-review">
                             <h4>Add A Review</h4>
+                            <form method="POST" action="{{ route('review.post') }}">
+                                @csrf
                             <div class="ratting-wrap">
                                 <table>
                                     <thead>
@@ -190,42 +193,37 @@
                                         <tr>
                                             <td>How Many Stars?</td>
                                             <td>
-                                                <input type="radio" name="a" />
+                                                <input type="radio" name="stars" value="1" />
                                             </td>
                                             <td>
-                                                <input type="radio" name="a" />
+                                                <input type="radio" name="stars" value="2" />
                                             </td>
                                             <td>
-                                                <input type="radio" name="a" />
+                                                <input type="radio" name="stars" value="3" />
                                             </td>
                                             <td>
-                                                <input type="radio" name="a" />
+                                                <input type="radio" name="stars" value="4" />
                                             </td>
                                             <td>
-                                                <input type="radio" name="a" />
+                                                <input type="radio" name="stars" value="5" />
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 col-12">
-                                    <h4>Name:</h4>
-                                    <input type="text" placeholder="Your name here..." />
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <h4>Email:</h4>
-                                    <input type="email" placeholder="Your Email here..." />
-                                </div>
                                 <div class="col-12">
                                     <h4>Your Review:</h4>
-                                    <textarea name="massage" id="massage" cols="30" rows="10" placeholder="Your review here..."></textarea>
+                                    <textarea name="review" id="massage" cols="30" rows="10" placeholder="Your review here..."></textarea>
+                                    <input type="hidden" name="order_detail_id" value="{{ $order_detail_id }}">
                                 </div>
                                 <div class="col-12">
                                     <button class="btn-style">Submit</button>
                                 </div>
                             </div>
-                        </div>    
+                            </form>
+                        </div>            
+                        @endif
                         @endauth
                     </div>
                 </div>
