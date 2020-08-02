@@ -100,10 +100,6 @@
                             </p>
                             <ul class="pull-right d-flex">
                                 <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star-half-o"></i></li>
                             </ul>
                         </div>
                     </div>
@@ -158,11 +154,9 @@
                             <h3><a href="{{ route('singleproduct', ['slug' => $product->slug]) }}">{{ $product->product_name }}</a></h3>
                             <p class="pull-left">BDT: {{ $product->product_price }} </p>
                             <ul class="pull-right d-flex">
+                                @for ($i = 0; $i < average_stars($product->id); $i++)    
                                 <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star-half-o"></i></li>
+                                @endfor
                             </ul>
                         </div>
                     </div>

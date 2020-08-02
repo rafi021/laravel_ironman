@@ -41,12 +41,14 @@
                     <div class="rating-wrap fix">
                         <span class="pull-left">BDT {{ $product_info->product_price }}</span>
                         <ul class="rating pull-right">
+                            @for ($i = 0; $i < average_stars($product_info->id); $i++)    
                             <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li>(05 Customar Review)</li>
+                            @endfor
+                            @if (review_customer_count($product_info->id))
+                            <li>({{ review_customer_count($product_info->id) }} Customar Review)</li>    
+                            @else
+                                <li>No review yet!!!</li>
+                            @endif
                         </ul>
                     </div>
                     <p>{{ $product_info->product_breif_description }}</p>

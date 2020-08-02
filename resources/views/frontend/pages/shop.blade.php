@@ -62,11 +62,9 @@
                                 <h3><a href="{{ route('singleproduct', ['slug' => $single_product->slug]) }}">{{ $single_product->product_name }}</a></h3>
                                 <p class="pull-left">{{ $single_product->product_price }}</p>
                                 <ul class="pull-right d-flex">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star-half-o"></i></li>
+                                    @for ($i = 0; $i <average_stars($single_product->id); $i++)
+                                        <li><i class="fa fa-star"></i></li>
+                                    @endfor
                                 </ul>
                             </div>
                         </div>

@@ -10,6 +10,7 @@ class OrderDetails extends Model
         'stars',
         'review',
     ];
+    
     public function order()
     {
         return $this->belongsTo('App\Order');
