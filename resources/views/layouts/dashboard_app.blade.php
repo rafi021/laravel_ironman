@@ -83,6 +83,13 @@
         </div><!-- menu-item -->
       </a><!-- sl-menu-link -->
 
+      <a href="{{ route('orders.index') }}" class="sl-menu-link {{ $activePage == 'order' ? 'active' : '' }}">
+        <div class="sl-menu-item">
+        <i class="menu-item-icon icon ion-bag tx-20"></i>
+        <span class="menu-item-label">Order</span>
+        </div><!-- menu-item -->
+      </a><!-- sl-menu-link -->
+
       <a href="{{ route('coupon.index') }}" class="sl-menu-link {{ $activePage == 'coupon' ? 'active' : '' }}">
         <div class="sl-menu-item">
         <i class="menu-item-icon icon ion ion-code-working"></i>

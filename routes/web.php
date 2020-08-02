@@ -108,6 +108,9 @@ Route::get('/wishlist/remove/{wishlist}', 'WishlistController@wishlistremove')->
 // Route for Coupoun
 Route::resource('coupon', 'CouponController');
 
+// Route for Orders
+Route::resource('/orders', 'OrdersController');
+
 // Route for Customer
 Route::get('customer/home', 'CustomerController@home')->name('customer.home');
 Route::get('/customer/invoice/download/{order_id}', 'CustomerController@invoiceDownload')->name('invoice.download');
