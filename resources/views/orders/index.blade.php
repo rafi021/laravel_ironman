@@ -124,9 +124,11 @@
                                         <td>{{ $order->paymentMethod->payment_name }}</td>
                                         <td>
                                             @if ($order->payment_status == 1)
-                                            <span class="badge badge-danger">unpaid</span>
-                                            @else
+                                            <span class="badge badge-warning">unpaid</span>
+                                            @elseif($order->payment_status == 2)
                                             <span class="badge badge-success">paid</span>
+                                            @else
+                                            <span class="badge badge-danger">cancel</span>
                                             @endif
                                         </td>                 
                                         <td>{{ $order->sub_total }}</td>
@@ -134,9 +136,9 @@
                                         <td>{{ $order->total }}</td>
                                         <td><a href="{{ route('invoice.download', $order->id) }}"><i class="fa fa-download"></i>Download Invoice</a></td>
                                         <td class="td-actions text-right">
-                                            <form action="{{ route('orders.update', ['order'=> $order->id]) }}" method="post">
+                                            <form action="{{ route('orders.destroy', ['order'=> $order->id]) }}" method="post">
                                                 @csrf 
-                                                @method('PUT')
+                                                @method('delete')
                                                 @if ($order->payment_status == 1)
                                                 <a href="{{ route('orders.edit', ['order' => $order->id]) }}" rel="tooltip" class="btn btn-info btn-link btn-sm">
                                                     <i class="fa fa-paypal fa-2x" aria-hidden="true"></i>

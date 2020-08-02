@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\OrderDetails;
+use App\Product;
 use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('checkrole');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -89,8 +97,21 @@ class OrdersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        // return back the product into Product table
+        $order_details = OrderDetails::where('order_id', $order->id)->get();
+        foreach ($order_details as $order_detail) { 
+            Product::find($order_detail->product_id)->increment('product_stock', $order_detail->product_quantity);
+        }
+        // then update payment status of Order table to 3 for Order Cancelation 
+        $order->update([
+            'payment_status' => 3
+        ]);
+
+        return redirect()->route('orders.index')->with([
+            'status' => 'Order Canceled Successfully!!',
+            'type' => 'success',
+        ]);
     }
 }

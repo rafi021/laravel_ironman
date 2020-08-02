@@ -120,9 +120,11 @@
                             <td>{{ $order->paymentMethod->payment_name }}</td>
                             <td>
                                 @if ($order->payment_status == 1)
-                                <span class="badge badge-danger">unpaid</span>
-                                @else
+                                <span class="badge badge-warning">unpaid</span>
+                                @elseif($order->payment_status == 2)
                                 <span class="badge badge-success">paid</span>
+                                @else
+                                <span class="badge badge-danger">cancel</span>
                                 @endif
                             </td>                 
                             <td>{{ $order->sub_total }}</td>
