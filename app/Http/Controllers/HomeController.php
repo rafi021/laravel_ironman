@@ -42,8 +42,8 @@ class HomeController extends Controller
 
     public function sendnewsletter()
     {
-        // $users_email = ClientMessage::all()->pluck('email');
-        $users_email = User::find(26)->email;
+        $users_email = ClientMessage::all()->pluck('email');
+        //$users_email = User::find(26)->email;
         // foreach ($users_email as $email) {
         Mail::to($users_email)
             ->send(new SendNewsLetter());
