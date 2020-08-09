@@ -15,11 +15,6 @@
                 <div class="card">
                     <div class="card-header tx-white bg-teal">
                         <h4 class="card-title tx-white">List of Orders #{{ $count ?? '' }}</h4>
-                        <p class="card-product tx-white">
-                            <div class="row">
-                                <a href="{{ route('product.create') }}" class="btn btn-primary">Add New Order</a>
-                            </div>
-                        </p>
                     </div>
                     <div class="card-body table-responsive">
                         @if(session('status'))
