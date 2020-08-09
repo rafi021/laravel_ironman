@@ -80,6 +80,7 @@
         <div class="sl-menu-item">
         <i class="menu-item-icon icon ion-plus-circled tx-20"></i>
         <span class="menu-item-label">Product</span>
+        <span class="badge badge-danger">{{ alert_product_quantity() }}</span>
         </div><!-- menu-item -->
       </a><!-- sl-menu-link -->
 

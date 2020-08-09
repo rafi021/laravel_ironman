@@ -16,6 +16,7 @@ class Product extends Model
         'product_code',
         'product_price',
         'product_stock',
+        'alert_quantity',
         'product_image',
         'slug',
         'additional_info',

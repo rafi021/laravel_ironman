@@ -49,7 +49,7 @@
                             </thead>
                             <tbody>
                                 @forelse ($products as $product)
-                                    <tr>
+                                    <tr class="{{ ($product->product_stock <= $product->alert_quantity) ? 'table-danger':'' }}">
                                         <td> {{ $products->firstItem() + $loop->index }} </td>
                                         <td>
                                             <div class="form-check text-center mx-2">

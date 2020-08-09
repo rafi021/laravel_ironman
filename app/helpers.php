@@ -1,5 +1,6 @@
 <?php
 
+use App\Product;
 use Illuminate\Support\Facades\Cookie;
 
 function total_product_count()
@@ -43,6 +44,12 @@ function average_stars($product_id)
     else{
         return round($sum_amount/$count_amount);
     }
+}
+
+function alert_product_quantity()
+{
+    $alarm_amount = Product::where('product_stock', '<=','alert_quantity')->count();
+    return $alarm_amount;
 }
 
 

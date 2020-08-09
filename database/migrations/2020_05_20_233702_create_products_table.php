@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('product_code');
             $table->float('product_price');
             $table->unsignedInteger('product_stock');
+            $table->unsignedInteger('alert_quantity')->default(1);
             $table->string('product_image')->default('default_product.jpg');
             $table->longText('additional_info');
             $table->unsignedBigInteger('category_id');
