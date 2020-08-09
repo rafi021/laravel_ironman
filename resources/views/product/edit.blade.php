@@ -65,6 +65,7 @@
                             <x-input-text type="text" labelName="Product Code" placeholderName="Enter Product Code" varName="product_code" :dbvalue="$product->product_code"/>
                             <x-input-text type="number" labelName="Product Price" placeholderName="Enter Product Price" varName="product_price" :dbvalue="$product->product_price"/>
                             <x-input-text type="number" labelName="Product Stock" placeholderName="Enter Product Stock" varName="product_stock" :dbvalue="$product->product_stock"/>
+                            <x-input-text type="number" labelName="Alert Quantity" placeholderName="Enter alert amount" varName="alert_quantity" :dbvalue="$product->alert_quantity"/>
                             <div class="row">
                                 <label class="col-sm-12 col-form-label">{{__("Product Image")}} </label>
                             </div>

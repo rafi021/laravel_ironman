@@ -67,6 +67,7 @@ class ProductController extends Controller
             'product_code' => $request->input('product_code'),
             'product_price' => $request->input('product_price'),
             'product_stock' => $request->input('product_stock'),
+            'alert_quantity' => $request->input('alert_quantity'),
             'additional_info' => $request->input('additional_info'),
             'slug' => $slug_link,
             'created_at' => Carbon::now(),
@@ -121,6 +122,7 @@ class ProductController extends Controller
             'product_code' => $request->input('product_code'),
             'product_price' => $request->input('product_price'),
             'product_stock' => $request->input('product_stock'),
+            'alert_quantity' => $request->input('alert_quantity'),
             'slug' => $slug_link,
             'additional_info' => $request->input('additional_info'),
         ]);
