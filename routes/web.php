@@ -23,6 +23,7 @@ Route::get('/faq', 'FrontendController@faq')->name('faq');
 Route::get('/wishlist', 'FrontendController@wishlist')->name('wishlist');
 Route::get('/blog-details/{post}', 'FrontendController@blogDetails')->name('blogDetails');
 Route::post('/review/post', 'FrontendController@reviewpost')->name('review.post');
+Route::get('/search', 'FrontendController@search')->name('search');
 
 // Checkout routes
 Route::get('/checkout', 'CheckoutController@index')->name('checkout');

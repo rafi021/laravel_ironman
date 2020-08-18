@@ -15,6 +15,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class FrontendController extends Controller
 {
@@ -188,5 +190,18 @@ class FrontendController extends Controller
         ]);
 
         return back();
+    }
+
+    public function search()
+    {
+        $results = QueryBuilder::for(Product::class)
+                ->allowedFilters(['product_name', 'category_id'])
+                ->allowedSorts(['product_name'])
+                ->get();
+
+        return view('frontend.pages.search', [
+            'results' => $results,
+            'count' => $results->count(),
+        ]);
     }
 }
