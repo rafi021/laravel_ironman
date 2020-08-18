@@ -14,6 +14,7 @@ use App\Wishlist;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -22,10 +23,19 @@ class FrontendController extends Controller
 {
     public function index()
     {
+        $bestSell = DB::table('order_details')
+                    ->select('product_id', DB::raw('count(*) as total'))
+                    ->groupBy('product_id')
+                    ->get();
+        $bestSellers = $bestSell->sortByDesc('total')->take(4);
+        //$best_sellers = Product::where('id', $bestSellers->product_id)->get();
+        //dd($bestSellers;
+        
         return view('frontend.pages.index', [
             'categories' => Category::all(),
             'products' => Product::latest()->take(8)->get(),
             'testimonials' => Testimonial::latest()->take(4)->get(),
+            'best_sellers' => $bestSellers,
         ]);
     }
 

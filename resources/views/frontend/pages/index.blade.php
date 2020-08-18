@@ -66,10 +66,11 @@
                 </div>
             </div>
             <ul class="row">
+                @foreach ($best_sellers as $best_seller)
                 <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="product-wrap">
                         <div class="product-img">
-                            <img src="{{ asset('frontend_assets') }}/images/product/1.jpg" alt="">
+                            <img src="{{ asset('uploads/product_photos') }}/{{ App\Product::find($best_seller->product_id)->product_image }}" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -94,16 +95,15 @@
                             </div>
                         </div>
                         <div class="product-content">
-                            <h3><a href="single-product.html">Nature Honey</a></h3>
-                            <p class="pull-left">$125
-
-                            </p>
+                            <h3><a href="{{ route('singleproduct', ['slug' => App\Product::find($best_seller->product_id)->slug]) }}">{{ App\Product::find($best_seller->product_id)->product_name }}</a></h3>
+                            <p class="pull-left">${{ App\Product::find($best_seller->product_id)->product_price }}</p>
                             <ul class="pull-right d-flex">
                                 <li><i class="fa fa-star"></i></li>
                             </ul>
                         </div>
                     </div>
                 </li>
+                @endforeach
             </ul>
         </div>
     </div>
