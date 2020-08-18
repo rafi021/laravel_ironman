@@ -44,6 +44,21 @@ function average_stars($product_id)
     else{
         return round($sum_amount/$count_amount);
     }
+
+    
+    // if(!Cache::has('average_star'))
+    // {
+    //     $count_amount= App\OrderDetails::where('product_id', $product_id)->whereNotNull('review')->count();
+    //     $sum_amount = App\OrderDetails::where('product_id', $product_id)->whereNotNull('review')->sum('stars');
+    //     if($count_amount == 0){
+    //     $average_star = 0;
+    //     }else{
+    //         $average_star = round($sum_amount/$count_amount);
+    //         Cache::put('average_star', $average_star, 60);
+    //     }  
+    // }else{
+    //     return Cache::get('average_star');
+    // }
 }
 
 function alert_product_quantity()
