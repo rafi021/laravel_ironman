@@ -8,14 +8,30 @@
 @endsection
 
 @section('dashboard_content')
-<h4>
-    @if (Auth::user()->user_role ==1)
-        You are admin
-    @else 
-        You are customer
-    @endif
-</h4>
-<div class="container">
+<div class="container-fluid">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Payment Statistics</h4>
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Total Inventory Vs Total Sales</h4>
+                    {{-- {{ $total_inventory }} {{ $total_sales }} --}}
+                </div>
+                <div class="card-body">
+                    <canvas id="myChart2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="card">
@@ -71,4 +87,46 @@
         </div>
     </div>
 </div>
+@endsection
+@section('dashboard_scripts')
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['Paid', 'Unpaid', 'Cancel'],
+        datasets: [{
+            label: 'Order Payment Status',
+            backgroundColor: ['rgb(56, 200, 132)','rgb(125, 25, 132)','rgb(255, 156, 10)'],
+            borderColor: 'rgb(255, 255, 255)',
+            data: [{{ $paid }},{{ $unpaid }}, {{ $cancel }}]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+var ctx = document.getElementById('myChart2').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ['Total Inventory', 'Total Sales'],
+        datasets: [{
+            label: 'Inventory Vs Sales (in BDT)',
+            backgroundColor: ['rgb(56, 200, 132)','rgb(255, 156, 10)'],
+            borderColor: 'rgb(255, 255, 255)',
+            data: [{{ $total_inventory }},{{ $total_sales }}]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+</script>
 @endsection

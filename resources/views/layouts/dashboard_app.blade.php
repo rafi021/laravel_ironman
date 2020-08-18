@@ -313,29 +313,8 @@
     <script src="{{ asset('dashboard_assets') }}/lib/datatables/jquery.dataTables.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/datatables-responsive/dataTables.responsive.js"></script>
     <script src="{{ asset('dashboard_assets') }}/lib/select2/js/select2.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9.10.12/dist/sweetalert2.all.min.js"></script>
-        {{-- <script>
-            document.querySelector(".btn-delete").addEventListener("click" , function(){
-                Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                if (result.value) {
-                    document.querySelector(".form-delete").submit(),
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
-                }
-                })
-            });
-        </script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    @yield('dashboard_scripts')
   </body>
 </html>
